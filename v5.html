@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hiroko Tanaka — Design Leader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:      #0D0D0F;
+      --surface: #131316;
+      --text:    #EAE8E3;
+      --muted:   #7a7a7a;
+      --subtle:  #222226;
+      --border:  #1E1E22;
+      --accent:  #00B870;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Cursor ── */
+    #cur { position:fixed; width:5px; height:5px; background:var(--accent); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); }
+    #cur-ring { position:fixed; width:32px; height:32px; border:1px solid rgba(234,232,227,0.22); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .3s,height .3s,border-color .3s; }
+    #cur-ring.on { width:56px; height:56px; border-color:rgba(234,232,227,0.5); }
+
+    /* ── Loader ── */
+    #loader { position:fixed; inset:0; background:var(--bg); z-index:9000; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end; padding:52px 56px; gap:20px; }
+    .ld-name { font-family:'Syne',sans-serif; font-size:clamp(36px,6vw,80px); font-weight:700; letter-spacing:-0.03em; line-height:1; overflow:hidden; }
+    .ld-name span { display:block; transform:translateY(110%); }
+    .ld-name.sm { font-size:clamp(14px,2vw,22px); font-weight:400; letter-spacing:0.18em; margin-top:12px; }
+    .ld-meta { font-size:11px; letter-spacing:0.18em; color:var(--muted); text-transform:uppercase; overflow:hidden; }
+    .ld-meta span { display:block; transform:translateY(110%); }
+    .ld-line { position:absolute; bottom:0; left:0; height:2px; width:0; background:var(--accent); }
+
+    /* ── Nav ── */
+    nav { position:fixed; top:0; left:0; right:0; z-index:500; padding:0 56px; height:60px; display:flex; align-items:center; justify-content:space-between; }
+    nav::before { content:''; position:absolute; inset:0; background:rgba(13,13,15,0.82); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); opacity:0; transition:opacity .4s; }
+    nav.scrolled::before { opacity:1; }
+    .nav-logo { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; letter-spacing:0.12em; color:var(--text); position:relative; z-index:1; text-decoration:none; }
+    .nav-r { display:flex; align-items:center; gap:36px; position:relative; z-index:1; }
+    .nav-links { display:flex; gap:32px; list-style:none; }
+    .nav-links a { font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(234,232,227,0.65); text-decoration:none; font-weight:400; transition:color .25s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-avail { display:flex; align-items:center; gap:8px; font-size:11px; letter-spacing:0.06em; color:var(--accent); background:rgba(13,13,15,0.55); border:1px solid rgba(0,184,112,0.25); padding:5px 10px; border-radius:20px; }
+    .nav-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); animation:blink 2.4s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1}50%{opacity:.3} }
+
+    /* ── Hero ── */
+    #hero { min-height:100vh; display:grid; grid-template-rows:1fr auto; padding:0 56px; padding-top:60px; position:relative; overflow:hidden; }
+    .hero-photo { position:absolute; top:0; right:0; bottom:0; left:42%; z-index:0; overflow:hidden; }
+    .hero-photo img { width:100%; height:100%; object-fit:cover; object-position:center 8%; display:block; }
+    .hero-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(to right, var(--bg) 0%, rgba(13,13,15,0.55) 28%, rgba(13,13,15,0) 62%); }
+    .hero-main { display:flex; flex-direction:column; justify-content:flex-end; padding-bottom:72px; position:relative; z-index:1; }
+    .hero-top-row { display:flex; justify-content:flex-start; margin-bottom:24px; }
+    .hero-year { font-size:11px; letter-spacing:0.18em; color:var(--muted); text-transform:uppercase; opacity:0; }
+    .hero-role { font-size:11px; letter-spacing:0.18em; color:var(--muted); text-transform:uppercase; opacity:0; margin-top:20px; }
+    .hero-name { font-family:'Syne',sans-serif; font-size:clamp(72px,12.5vw,184px); font-weight:700; letter-spacing:-0.04em; line-height:0.88; overflow:hidden; }
+    .h-line { overflow:hidden; display:block; }
+    .h-line span { display:block; transform:translateY(108%); }
+    .h-line.light span { font-weight:700; color:var(--text); }
+    .hero-foot { display:flex; align-items:flex-end; justify-content:space-between; padding:40px 0; border-top:none; position:relative; z-index:1; }
+    .hero-foot::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:var(--border); -webkit-mask-image:linear-gradient(to right,black 0%,black 42%,transparent 68%); mask-image:linear-gradient(to right,black 0%,black 42%,transparent 68%); }
+    .hero-desc { font-size:14px; line-height:1.85; color:var(--muted); max-width:360px; font-weight:300; opacity:0; }
+    .hero-foot-r { display:flex; flex-direction:column; align-items:flex-end; gap:12px; opacity:0; }
+    .hero-loc { font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(234,232,227,0.55); }
+    .hero-scroll { display:flex; align-items:center; gap:12px; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(234,232,227,0.55); }
+    .h-scroll-line { width:48px; height:1px; background:rgba(255,255,255,0.18); position:relative; overflow:hidden; }
+    .h-scroll-line::after { content:''; position:absolute; inset:0; background:var(--accent); animation:sl 2.2s ease-in-out infinite; }
+    @keyframes sl { 0%{transform:translateX(-100%)}50%{transform:translateX(0)}100%{transform:translateX(100%)} }
+
+    /* ── Marquee ── */
+    .mq-wrap { overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:18px 0; }
+    .mq-track { display:flex; white-space:nowrap; animation:mq 38s linear infinite; }
+    .mq-item { display:inline-flex; align-items:center; gap:24px; padding-right:24px; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); flex-shrink:0; }
+    .mq-sep { width:3px; height:3px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+    @keyframes mq { from{transform:translateX(0)}to{transform:translateX(-50%)} }
+
+    /* ── About ── */
+    #about { padding:160px 56px; }
+    .sec-eyebrow { font-size:10px; letter-spacing:0.26em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:14px; margin-bottom:72px; }
+    .sec-eyebrow::before { content:''; width:24px; height:1px; background:var(--muted); }
+    .about-layout { display:grid; grid-template-columns:5fr 4fr; gap:120px; align-items:start; }
+    .about-statement { font-family:'Syne',sans-serif; font-size:clamp(20px,2.0vw,28px); font-weight:500; line-height:1.65; letter-spacing:-0.01em; }
+    .about-statement em { font-style:normal; color:var(--muted); }
+    .stat-table { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--border); margin-bottom:56px; }
+    .st-cell { padding:28px 0; border-bottom:1px solid var(--border); }
+    .st-cell:nth-child(odd) { padding-right:32px; border-right:1px solid var(--border); }
+    .st-cell:nth-child(even) { padding-left:32px; }
+    .st-n { font-family:'Syne',sans-serif; font-size:clamp(34px,3.5vw,48px); font-weight:700; letter-spacing:-0.03em; line-height:1; margin-bottom:6px; }
+    .st-plus { color:var(--accent); font-size:0.75em; }
+    .st-l { font-size:11px; color:var(--muted); letter-spacing:0.06em; }
+    .award-head { font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
+    .award-row { display:flex; align-items:baseline; gap:16px; padding:14px 0; border-bottom:1px solid var(--border); }
+    .award-yr { font-size:11px; color:var(--muted); flex-shrink:0; width:44px; }
+    .award-n { font-size:13px; font-weight:400; flex:1; }
+    .award-tag { font-size:9px; padding:3px 8px; border:1px solid var(--subtle); color:var(--muted); border-radius:2px; letter-spacing:0.08em; text-transform:uppercase; flex-shrink:0; }
+    .award-tag.hl { border-color:#007A4A; color:var(--accent); }
+
+    /* ── Work ── */
+    #work { padding:80px 56px 160px; }
+    .work-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:64px; padding-bottom:32px; border-bottom:1px solid var(--border); }
+    .work-ttl { font-family:'Syne',sans-serif; font-size:clamp(40px,6vw,84px); font-weight:700; letter-spacing:-0.04em; line-height:0.9; }
+    .work-meta { font-size:12px; color:var(--muted); letter-spacing:0.06em; }
+
+    .wg { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); }
+    .wi { background:var(--bg); position:relative; overflow:hidden; aspect-ratio:16/9; cursor:pointer; }
+    .wi.span2 { grid-column:1/-1; aspect-ratio:21/9; }
+    .wi-bg { position:absolute; inset:0; transition:transform .8s cubic-bezier(.19,1,.22,1); }
+    .wi-bg img { width:100%; height:100%; object-fit:cover; display:block; }
+    .wi:hover .wi-bg { transform:scale(1.04); }
+
+    /* dark overlay on hover — use div, not ::before (GSAP-safe) */
+    .wi-overlay {
+      position:absolute; inset:0; z-index:1;
+      background:rgba(13,13,15,0);
+      transition:background .45s ease;
+      pointer-events:none;
+    }
+    .wi:hover .wi-overlay { background:rgba(13,13,15,0.62); }
+
+    .wi-info {
+      position:absolute; bottom:0; left:0; right:0; z-index:2;
+      padding:28px 32px;
+      background:linear-gradient(transparent, rgba(13,13,15,0.5) 55%);
+      transform:translateY(100%);
+      transition:transform .5s cubic-bezier(.25,.46,.45,.94);
+    }
+    .wi:hover .wi-info { transform:translateY(0); }
+    .wi-idx { position:absolute; top:20px; left:28px; z-index:2; font-size:11px; letter-spacing:0.12em; color:rgba(255,255,255,0.4); font-weight:400; }
+    .wi-cat { font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.65); margin-bottom:6px; }
+    .wi-name { font-family:'Syne',sans-serif; font-size:clamp(15px,1.8vw,24px); font-weight:700; color:#fff; letter-spacing:-0.02em; line-height:1.15; }
+
+
+    /* ── Project Detail Panel ── */
+    #detail-overlay {
+      position:fixed; inset:0;
+      background:rgba(13,13,15,0);
+      z-index:2000;
+      pointer-events:none;
+      transition:background .4s;
+    }
+    #detail-overlay.open {
+      background:rgba(13,13,15,0.75);
+      pointer-events:auto;
+    }
+
+    #detail-panel {
+      position:fixed;
+      top:0; right:0; bottom:0;
+      width:min(860px, 92vw);
+      background:var(--surface);
+      border-left:1px solid var(--border);
+      overflow-y:auto;
+      transform:translateX(100%);
+      transition:transform .6s cubic-bezier(.19,1,.22,1);
+      z-index:2001;
+    }
+    #detail-panel.open {
+      transform:translateX(0);
+    }
+
+    .dp-close {
+      position:sticky; top:0; left:0; right:0;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:20px 40px;
+      background:rgba(19,19,22,0.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+      z-index:10;
+      cursor:default;
+    }
+    .dp-close-btn {
+      width:36px; height:36px;
+      border:1px solid var(--border);
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer;
+      color:#8C8A86;
+      font-size:16px;
+      transition:color .2s, border-color .2s;
+      background:none;
+    }
+    .dp-close-btn:hover { color:var(--text); border-color:#8C8A86; }
+    .dp-close-breadcrumb { font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#8C8A86; }
+
+    /* Hero image */
+    .dp-hero { width:100%; aspect-ratio:16/9; overflow:hidden; }
+    .dp-hero img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* Content */
+    .dp-content { padding:48px 40px 80px; }
+
+    .dp-meta { display:flex; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+    .dp-cat { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); }
+    .dp-sep { width:1px; height:12px; background:var(--border); }
+    .dp-year { font-size:12px; letter-spacing:0.1em; color:#8C8A86; text-transform:uppercase; }
+
+    .dp-title {
+      font-family:'Syne',sans-serif;
+      font-size:clamp(32px,4.5vw,56px);
+      font-weight:700;
+      letter-spacing:-0.03em;
+      line-height:1;
+      margin-bottom:8px;
+    }
+    .dp-subtitle { font-size:15px; color:#8C8A86; margin-bottom:32px; font-weight:300; }
+
+    /* Purpose — PJ main objective */
+    .dp-purpose {
+      font-size:17px; line-height:1.75; color:var(--text); font-weight:300;
+      padding:24px 0 28px;
+      border-top:1px solid var(--border);
+      margin-bottom:0;
+    }
+    .dp-purpose-label {
+      font-size:10px; letter-spacing:0.24em; text-transform:uppercase;
+      color:var(--accent); margin-bottom:10px;
+    }
+
+    .dp-role {
+      display:flex; gap:8px; flex-wrap:wrap; margin-bottom:0; align-items:flex-start;
+    }
+    .dp-role-text {
+      font-size:15px; line-height:1.75; color:var(--text); font-weight:300;
+      width:100%; margin-bottom:16px;
+    }
+    .dp-tag {
+      font-size:12px; padding:6px 16px;
+      border:1px solid rgba(255,255,255,0.2);
+      color:#C8C6C0;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      border-radius:2px;
+    }
+
+    .dp-desc {
+      font-size:15px; line-height:1.95; color:#A8A6A0;
+      margin-bottom:40px;
+    }
+    .dp-desc strong { color:var(--text); font-weight:400; }
+
+    /* Image gallery */
+    .dp-gallery { display:grid; grid-template-columns:1fr; gap:2px; margin-bottom:48px; }
+    .dp-gallery img { width:100%; display:block; object-fit:cover; }
+    .dp-gallery.two { grid-template-columns:1fr 1fr; }
+    .dp-gallery .tall { aspect-ratio:4/3; object-fit:cover; }
+
+    /* Impact */
+    .dp-impact { padding-top:40px; border-top:1px solid var(--border); }
+    .dp-impact-head { font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#8C8A86; margin-bottom:24px; }
+    .dp-impact-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); }
+    .dp-impact-cell { background:var(--surface); padding:24px 20px; }
+    .dp-impact-n { font-family:'Syne',sans-serif; font-size:26px; font-weight:700; color:var(--accent); margin-bottom:6px; }
+    .dp-impact-l { font-size:12px; color:#A8A6A0; letter-spacing:0.04em; }
+
+    /* ── Skills ── */
+    #skills { padding:120px 56px; background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .skills-wrap { display:grid; grid-template-columns:2fr 5fr; gap:80px; align-items:start; }
+    .skills-intro { font-family:'Syne',sans-serif; font-size:clamp(24px,2.4vw,34px); font-weight:500; letter-spacing:-0.02em; line-height:1.25; margin-top:64px; }
+    /* bar graph expertise */
+    .sk-bar-groups { display:grid; grid-template-columns:1fr 1fr; gap:56px 80px; margin-top:72px; }
+    .sk-bar-group-head { font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+    .sk-bar-list { list-style:none; }
+    .sk-bar-item { display:grid; grid-template-columns:1fr auto; align-items:center; gap:16px; padding:11px 0; border-bottom:1px solid var(--border); row-gap:6px; }
+    .sk-bar-item:last-child { border:none; }
+    .sk-bar-top { display:contents; }
+    .sk-bar-label { font-size:13px; color:var(--text); grid-column:1; }
+    .sk-bar-pct { font-size:11px; color:var(--muted); text-align:right; letter-spacing:0.04em; grid-column:2; }
+    .sk-bar-track { height:2px; background:var(--subtle); border-radius:2px; overflow:hidden; grid-column:1/-1; }
+    .sk-bar-fill { height:100%; background:var(--accent); border-radius:2px; width:0; transition:width 1.2s cubic-bezier(.25,.46,.45,.94); }
+
+    /* ── Beyond Design ── */
+    #beyond { padding:120px 56px 0; border-top:1px solid var(--border); }
+    .beyond-text { font-size:15px; line-height:2.0; color:var(--muted); font-weight:300; max-width:640px; margin-bottom:56px; }
+    .beyond-hero { width:calc(100% + 112px); margin-left:-56px; margin-bottom:3px; overflow:hidden; }
+    .beyond-hero img { width:100%; aspect-ratio:21/9; object-fit:cover; display:block; }
+    .beyond-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; width:calc(100% + 112px); margin-left:-56px; }
+    .beyond-grid img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+
+    /* ── Contact ── */
+    #contact { padding:160px 56px; }
+    .contact-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:end; }
+    .contact-ttl { font-family:'Syne',sans-serif; font-size:clamp(44px,6.5vw,90px); font-weight:700; letter-spacing:-0.04em; line-height:0.9; margin-bottom:40px; }
+    .contact-sub { font-size:14px; color:var(--muted); line-height:1.75; max-width:380px; }
+    .contact-right { display:flex; flex-direction:column; gap:32px; padding-bottom:8px; }
+    .contact-link { display:flex; justify-content:space-between; align-items:center; font-family:'Syne',sans-serif; font-size:clamp(18px,2.2vw,28px); font-weight:500; color:var(--text); text-decoration:none; letter-spacing:-0.02em; padding-bottom:16px; border-bottom:1px solid var(--border); transition:color .3s,border-color .3s; }
+    .contact-link:hover { color:var(--accent); border-color:var(--accent); }
+    .contact-link .arr { font-size:0.75em; transition:transform .3s; }
+    .contact-link:hover .arr { transform:translate(5px,-5px); }
+    .contact-avail { font-size:12px; color:var(--muted); display:flex; align-items:center; gap:10px; }
+    .ca-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); }
+
+    /* ── Work Preview Collage ── */
+    #work-preview { overflow:hidden; }
+    .wp-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      grid-template-rows:380px;
+      gap:2px;
+      background:var(--border);
+    }
+    .wp-item { overflow:hidden; position:relative; cursor:pointer; background:var(--surface); }
+    .wp-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.9s cubic-bezier(.19,1,.22,1); }
+    .wp-item:hover img { transform:scale(1.05); }
+    .wp-item::after { content:''; position:absolute; inset:0; background:rgba(13,13,15,0); transition:background .4s; }
+    .wp-item:hover::after { background:rgba(13,13,15,0.3); }
+    .wp-label { position:absolute; bottom:24px; left:28px; right:28px; z-index:1; opacity:0; transform:translateY(8px); transition:opacity .3s,transform .35s; pointer-events:none; }
+    .wp-item:hover .wp-label { opacity:1; transform:translateY(0); }
+    .wp-label-cat { font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+    .wp-label-name { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; color:#fff; letter-spacing:-0.02em; line-height:1.2; }
+
+    /* ── Detail panel section labels ── */
+    .dp-eyebrow {
+      font-size:10px; letter-spacing:0.26em; text-transform:uppercase;
+      color:var(--muted); display:flex; align-items:center; gap:14px;
+      margin-bottom:20px; margin-top:48px;
+    }
+    .dp-eyebrow::after { content:''; flex:1; height:1px; background:var(--border); }
+    .dp-gallery-head { margin-top:48px; }
+    .dp-gallery-head + .dp-gallery { margin-top:0; }
+
+    /* ── Process section ── */
+    .dp-process-groups {
+      display:grid;
+      grid-template-columns:3fr 2fr;
+      gap:8px;
+      margin-bottom:36px;
+    }
+    .dp-phase-group {
+      border:1px solid var(--border);
+      border-radius:4px;
+      overflow:hidden;
+      display:flex; flex-direction:column;
+    }
+    .dp-phase-group-dur {
+      padding:5px 12px 6px;
+      font-size:9px; letter-spacing:0.14em; text-transform:uppercase;
+      color:var(--muted);
+      border-bottom:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+      flex-shrink:0;
+    }
+    .dp-phase-group-cards {
+      display:grid;
+      grid-template-columns:repeat(var(--cols),1fr);
+      flex:1;
+    }
+    .dp-phase-card {
+      background:var(--subtle);
+      padding:14px 12px 12px;
+      display:flex; flex-direction:column; gap:5px;
+      border-right:1px solid var(--border);
+    }
+    .dp-phase-card:last-child { border-right:none; }
+    .dp-phase-num {
+      font-size:9px; letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--accent); font-weight:500;
+    }
+    .dp-phase-label {
+      font-size:11px; font-weight:600; color:var(--text);
+      line-height:1.35; margin-bottom:2px;
+    }
+    .dp-phase-desc {
+      font-size:10.5px; color:var(--muted); line-height:1.65;
+      flex:1; white-space:pre-line;
+    }
+
+    /* ── Footer ── */
+    footer { padding:24px 56px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+    .f-copy { font-size:11px; color:var(--muted); }
+    .f-links { display:flex; gap:24px; list-style:none; }
+    .f-links a { font-size:11px; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .f-links a:hover { color:var(--text); }
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<div id="loader">
+  <div class="ld-line" id="ldLine"></div>
+  <div class="ld-name"><span id="ln1">ALWAYS</span></div>
+  <div class="ld-name"><span id="ln2">BECOMING.</span></div>
+  <div class="ld-meta"><span id="lm">Brand Strategy · Art Direction · Tokyo</span></div>
+</div>
+
+<nav id="nav">
+  <a class="nav-logo" href="#">HT</a>
+  <div class="nav-r">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-avail"><div class="nav-dot"></div><span>Available</span></div>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-photo">
+    <img src="images/new-about-1.jpg" alt="">
+  </div>
+  <div class="hero-main">
+    <div class="hero-top-row">
+      <span class="hero-year" id="hYear">Est. 2013 — 13 yrs</span>
+    </div>
+    <h1 class="hero-name">
+      <span class="h-line"><span id="hn1">HIROKO</span></span>
+      <span class="h-line light"><span id="hn2">TANAKA</span></span>
+    </h1>
+    <div class="hero-role" id="hRole">Brand Designer × Art Director</div>
+  </div>
+  <div class="hero-foot">
+    <p class="hero-desc" id="hDesc">
+      事業の意思決定をデザインで前に進める、<br>
+      アートディレクター / デザインリーダー。<br>
+      コーポレート、サービス、イベントの<br>
+      ブランドをリードしてきた13年。
+    </p>
+    <div class="hero-foot-r" id="hFootR">
+      <div class="hero-loc">Tokyo, Japan</div>
+      <div class="hero-scroll"><div class="h-scroll-line"></div><span>Scroll</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="work-preview">
+  <div id="wp-grid" class="wp-grid"></div>
+</section>
+
+<div class="mq-wrap"><div class="mq-track" id="mq"></div></div>
+
+<section id="about">
+  <div class="sec-eyebrow">About</div>
+  <div class="about-layout">
+    <div class="about-statement">
+      事業の意思決定をデザインで前に進める、アートディレクターの田中寛子です。<br><br>
+      <em>複雑な状況を構造化し、チームが迷わず判断できる状態をつくることに価値を感じています。デザインを「表現」だけでなく、「意思決定を前に進めるための戦略」として設計。仕組み化による加速を意識しながら、コーポレートブランドからサービス・イベントまで、大規模なブランドの核心に触れるデザインを13年間追求してきました。</em>
+    </div>
+    <div>
+      <div class="stat-table">
+        <div class="st-cell">
+          <div class="st-n"><span class="cnt" data-to="13">0</span></div>
+          <div class="st-l">Years of Career</div>
+        </div>
+        <div class="st-cell">
+          <div class="st-n"><span class="cnt" data-to="40">0</span><span class="st-plus">+</span></div>
+          <div class="st-l">Design PJ Led</div>
+        </div>
+        <div class="st-cell">
+          <div class="st-n"><span class="cnt" data-to="50">0</span><span class="st-plus">K+</span></div>
+          <div class="st-l">Event Participants</div>
+        </div>
+        <div class="st-cell">
+          <div class="st-n"><span class="cnt" data-to="20">0</span><span class="st-plus">+</span></div>
+          <div class="st-l">Stakeholders Managed</div>
+        </div>
+      </div>
+      <div class="award-head">Recognition</div>
+      <div class="award-row">
+        <span class="award-yr">2026</span>
+        <span class="award-n">iF Design Award — LY Design Hub</span>
+        <span class="award-tag hl">iF Award</span>
+      </div>
+      <div class="award-row">
+        <span class="award-yr">2023</span>
+        <span class="award-n">iF Design Award — Creative Center / Connect One / LINE PLACE</span>
+        <span class="award-tag hl">iF Award</span>
+      </div>
+      <div class="award-row">
+        <span class="award-yr">2021</span>
+        <span class="award-n">Creative Center On — 社内 Award</span>
+        <span class="award-tag">Internal</span>
+      </div>
+      <div class="award-row">
+        <span class="award-yr">2018</span>
+        <span class="award-n">第40回 読者が選ぶ 講談社広告賞</span>
+        <span class="award-tag">Award</span>
+      </div>
+      <div class="award-row">
+        <span class="award-yr">2016</span>
+        <span class="award-n">第69回 広告電通賞</span>
+        <span class="award-tag">Award</span>
+      </div>
+      <div class="award-row">
+        <span class="award-yr">2014</span>
+        <span class="award-n">第67回 広告電通賞 総合広告電通賞</span>
+        <span class="award-tag">Award</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="work-header">
+    <h2 class="work-ttl">Selected<br>Work</h2>
+    <div class="work-meta">17 Projects · Click to view</div>
+  </div>
+  <div class="wg" id="wg"></div>
+</section>
+
+<section id="skills">
+  <div class="skills-wrap">
+    <div>
+      <div class="sec-eyebrow">Expertise</div>
+      <div class="skills-intro">Design.<br>Direction.<br>Strategy.<br>Scale.</div>
+    </div>
+    <div>
+      <div class="sk-bar-groups" id="skBarList">
+        <!-- ブランドデザイン -->
+        <div>
+          <div class="sk-bar-group-head">ブランドデザイン</div>
+          <ul class="sk-bar-list">
+            <li class="sk-bar-item"><span class="sk-bar-label">ブランドアイデンティティ</span><span class="sk-bar-pct">95</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="95"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">ビジュアルアイデンティティ</span><span class="sk-bar-pct">95</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="95"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">コンセプト設計</span><span class="sk-bar-pct">90</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="90"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">イラストレーション</span><span class="sk-bar-pct">82</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="82"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">3DCG（Blender）</span><span class="sk-bar-pct">70</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="70"></div></div></li>
+          </ul>
+        </div>
+        <!-- ディレクション -->
+        <div>
+          <div class="sk-bar-group-head">ディレクション</div>
+          <ul class="sk-bar-list">
+            <li class="sk-bar-item"><span class="sk-bar-label">アートディレクション</span><span class="sk-bar-pct">92</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="92"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">チームリード・育成</span><span class="sk-bar-pct">90</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="90"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">撮影・メディア監修</span><span class="sk-bar-pct">80</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="80"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">UIディレクション</span><span class="sk-bar-pct">68</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="68"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">モーション監修</span><span class="sk-bar-pct">65</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="65"></div></div></li>
+          </ul>
+        </div>
+        <!-- 戦略・推進 -->
+        <div>
+          <div class="sk-bar-group-head">戦略・推進</div>
+          <ul class="sk-bar-list">
+            <li class="sk-bar-item"><span class="sk-bar-label">ブランド戦略</span><span class="sk-bar-pct">88</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="88"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">ガイドライン策定</span><span class="sk-bar-pct">88</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="88"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">合意形成・調整</span><span class="sk-bar-pct">85</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="85"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">仕組み化・運用設計</span><span class="sk-bar-pct">82</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="82"></div></div></li>
+          </ul>
+        </div>
+        <!-- ツール -->
+        <div>
+          <div class="sk-bar-group-head">ツール</div>
+          <ul class="sk-bar-list">
+            <li class="sk-bar-item"><span class="sk-bar-label">Figma</span><span class="sk-bar-pct">95</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="95"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">Adobe Suite（Ai / Ps / Ae）</span><span class="sk-bar-pct">90</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="90"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">プロトタイピング</span><span class="sk-bar-pct">80</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="80"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">AIツール活用</span><span class="sk-bar-pct">75</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="75"></div></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="beyond">
+  <div class="sec-eyebrow">Beyond Design</div>
+  <p class="beyond-text">写真を撮ることが好きです。建築や空間の構造、光や素材の扱い方を静かに観察する時間を大切にしています。その視点が、複雑な状況を整理する思考にもつながっています。</p>
+  <div class="beyond-hero">
+    <img src="images/bd-photo-1.png" alt="Photography">
+  </div>
+  <div class="beyond-grid">
+    <img src="images/bd-photo-2.png" alt="Photography">
+    <img src="images/bd-photo-3.png" alt="Photography">
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="sec-eyebrow">Contact</div>
+      <h2 class="contact-ttl">Let's<br>Connect</h2>
+      <p class="contact-sub">新しいプロジェクト・コラボレーション・<br>お仕事のご相談はお気軽にどうぞ。</p>
+    </div>
+    <div class="contact-right">
+      <a href="mailto:hello@hirokotanaka.com" class="contact-link">
+        hello@hirokotanaka.com <span class="arr">↗</span>
+      </a>
+      <div class="contact-avail"><div class="ca-dot"></div>Currently open to new opportunities</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-copy">© 2025 Hiroko Tanaka. All rights reserved.</div>
+  <ul class="f-links">
+    <li><a href="#">LinkedIn</a></li>
+    <li><a href="#">Behance</a></li>
+  </ul>
+</footer>
+
+<!-- ── Detail Panel ── -->
+<div id="detail-overlay">
+  <div id="detail-panel">
+    <div class="dp-close">
+      <span class="dp-close-breadcrumb">Selected Work</span>
+      <button class="dp-close-btn" id="dpCloseBtn">✕</button>
+    </div>
+    <div class="dp-hero"><img id="dpHeroImg" src="" alt=""></div>
+    <div class="dp-content">
+      <div class="dp-meta">
+        <span class="dp-cat" id="dpCat"></span>
+        <div class="dp-sep"></div>
+        <span class="dp-year" id="dpYear"></span>
+      </div>
+      <h2 class="dp-title" id="dpTitle"></h2>
+      <p class="dp-subtitle" id="dpSubtitle"></p>
+      <div id="dpPurpose"></div>
+      <div id="dpTags"></div>
+      <div class="dp-desc" id="dpDesc"></div>
+      <div id="dpProcess"></div>
+      <div id="dpGallery"></div>
+      <div class="dp-impact" id="dpImpact"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ─── Project Data ─── */
+  const PROJECTS = [
+    /* ───── 横長3枚 ───── */
+    {
+      id: 1, span: true,
+      title: 'LY Corporation',
+      subtitle: 'Corporate Branding · Visual Identity',
+      cat: 'Corporate Branding',
+      year: '2024',
+      cover: 'images/cover-hq-ly.png',
+      purpose: 'LINEとヤフーの統合に伴い、新会社「LINEヤフー株式会社」のVI基盤を一から構築する。ブランドの一貫性・信頼感・拡張性を担保しながら、社内外への浸透を実現する。',
+      role: 'ブランド方針の意思決定を支える判断材料の設計。少人数体制でのブランド品質・一貫性の担保。',
+      tags: ['Branding','Design Lead','Photo Direction','Illustration','3DCG'],
+      desc: '<strong>LINEとヤフーの統合に伴うブランドデザインプロジェクトにおいて、3社合同・6ヶ月間の開発に参加。</strong>初期の検討フェーズでは複数案の検証や検討を通じて開発を支援し、後半の収束・実装フェーズではロゴの精緻化から各種展開に至るまで、ブランド表現全体の推進と意思決定支援を担いました。アイデンティティ統合デザインの深化、ビジネスツール制作、撮影ディレクションを通じて、最終的に採択されたブランド案の完成度と一貫性に責任を持ち、ブランドリフトに貢献しました。',
+      gallery: [
+        'images/new-ly-corp-2.png','images/new-ly-corp-3.png','images/new-ly-corp-4.png',
+        'images/new-ly-corp-5.png','images/new-ly-corp-6.png','images/new-ly-corp-9.png',
+        'images/new-ly-corp-10.png','images/new-ly-corp-11.png','images/new-ly-corp-12.png',
+        'images/new-ly-corp-13.png','images/new-ly-corp-14.png','images/new-ly-corp-15.png',
+        'images/new-ly-corp-16.png'
+      ],
+      processGroups: [
+        {
+          duration: '6ヶ月',
+          phases: [
+            { name: 'Framing',  desc: '課題整理\n判断軸の言語化' },
+            { name: 'Options',  desc: '複数案設計\n展開シミュレーション' },
+            { name: 'Decision', desc: '比較検証\n意思決定支援' },
+          ]
+        },
+        {
+          duration: '2ヶ月',
+          phases: [
+            { name: 'Execution', desc: '各種展開\n品質・一貫性担保' },
+            { name: 'Update',    desc: '運用確認\nレビュー\n定期アップデート' },
+          ]
+        },
+      ],
+      impact: [
+        { n: '6ヶ月', l: '3社合同開発' },
+        { n: 'Brand', l: 'Lead Member' },
+        { n: 'Photo', l: 'Direction' },
+      ]
+    },
+    {
+      id: 2, span: true,
+      title: 'Creative Center',
+      subtitle: 'Class / Club / Camp',
+      cat: 'Internal Identity · Culture',
+      year: '2023',
+      cover: 'images/cover-hq-cc.jpeg',
+      tags: ['Internal Branding','VI Design','Illustration','3DCG','iF Award'],
+      desc: '<strong>LINEのデザイナー育成を目的として3つのイベントで構成された本プログラム。</strong>社員の参加促進と認知拡大が課題でした。ブランドデザインリードを担当し、「クリエイティブな人・もの・ことにフォーカスする」というコンセプトで一貫したブランディングを行い、3Dと手描きのマスコットイラストを組み合わせた新鮮なデザインを開発。KVデザインは各プログラムの特性を反映しつつ、カラーバリエーションで多様性と秩序を示しました。',
+      gallery: [
+        'images/new-cc-2.png','images/new-cc-3.png','images/new-cc-4.png',
+        'images/new-cc-6.png','images/new-cc-7.png','images/new-cc-8.png',
+        'images/new-cc-9.png','images/new-cc-10.png','images/new-cc-11.png',
+        'images/new-cc-12.png','images/new-cc-13.png','images/new-cc-14.png'
+      ],
+      impact: [
+        { n: '1,500+', l: 'Participants' },
+        { n: '13+', l: 'Events Held' },
+        { n: 'iF 2023', l: 'Award Winning' },
+      ]
+    },
+    {
+      id: 4, span: true,
+      title: 'Connect One',
+      subtitle: 'Internal Brand Identity',
+      cat: 'Internal Identity · Culture',
+      year: '2025',
+      cover: 'images/cover-02.jpg',
+      tags: ['Brand Identity','VI Design','iF Award','Internal Branding'],
+      desc: '<strong>LINE公式アカウントをすべての法人向けサービスの起点として、集客から予約・購買・CRMまでを一気通貫で実現するための横断ビジネスプラットフォーム構想のビジュアライズPJ。</strong>VXデザイナー10名によるコンペの中から、コンセプトを最も的確に体現している案として採用されました。ブランドデザインを通じて全社的なフェーズ・ミッションの浸透に寄与し、デザインとガイドラインはLINEヤフーのビジネスイベントなどで継続的に活用されています。',
+      gallery: [
+        'images/new-connect-one-3.png',
+        'images/new-connect-one-4.png','images/new-connect-one-5.png','images/new-connect-one-6.png',
+        'images/new-connect-one-7.png','images/new-connect-one-8.png','images/new-connect-one-9.png',
+        'images/new-connect-one-10.png'
+      ],
+      impact: [
+        { n: 'iF 2023', l: 'Award Winning' },
+        { n: 'Top 1', l: '10名コンペ採用' },
+        { n: '全社', l: 'ミッション浸透' },
+      ]
+    },
+    /* ───── 2列 ×7行 ───── */
+    {
+      id: 3,
+      title: 'coconala Guidelines',
+      subtitle: 'Brand Visual Identity & Guidelines',
+      cat: 'Corporate Branding',
+      year: '2025',
+      cover: 'images/cover-04.jpg',
+      tags: ['Brand Identity','Visual Identity','Brand Guidelines','Logo Design','Color System'],
+      desc: '<strong>2017年以来初となるブランドデザインアップデートにおいて、リードデザイナーとしてガイドライン設計を主導。</strong>社外・社内で共通利用できるロゴおよびグラフィックの運用基盤を再構築し、判断基準を構造化。デジタル環境での安定性・視認性、先進的テックカンパニーとしての信頼感を高めるためのロゴカラー最適化を行い、ブランドを守りながら進化し続ける仕組みを確立。カラー、タイプフェイス、写真、イラスト、アイコンなど主要なビジュアル要素のトーンマナーを網羅したガイド設計・方針策定から運用定着を推進し、属人的だった判断基準を構造化、レビュー工数を大幅に削減しました。',
+      gallery: [
+        'images/new-coconala-guide-2.png','images/new-coconala-guide-3.png',
+        'images/new-coconala-guide-4.png','images/new-coconala-guide-5.png',
+        'images/new-coconala-guide-6.png','images/new-coconala-guide-7.png'
+      ],
+      impact: [
+        { n: '2017以来', l: '初のアップデート' },
+        { n: '工数', l: '大幅削減' },
+        { n: 'Brand', l: 'System Design' },
+      ]
+    },
+    {
+      id: 5,
+      title: 'Tech-Verse 2022',
+      subtitle: 'Event Visual Identity',
+      cat: 'Event / Experience Design',
+      year: '2022',
+      cover: 'images/cover-hq-techverse.jpeg',
+      tags: ['Event VI','Art Direction','3DCG','Motion','Web'],
+      desc: '<strong>LINEとヤフーが初めて合同で開催した技術カンファレンス。</strong>イベントタイトルに込められた言葉を起点に、抽象概念を視覚言語へと翻訳し、キービジュアルを軸としたWeb・会場・映像・広告までの体験設計を担当しました。2022年の開催では5万人規模の参加者・リーチを達成。本ロゴコンセプトは、2025年のイベントデザインにも引き継がれています。',
+      gallery: [
+        'images/new-techverse-4.png','images/new-techverse-6.png','images/new-techverse-7.png',
+        'images/new-techverse-8.png','images/new-techverse-9.png','images/new-techverse-10.png',
+        'images/new-techverse-11.png','images/new-techverse-12.png','images/new-techverse-13.png',
+        'images/new-techverse-14.png','images/new-techverse-15.png','images/new-techverse-16.png',
+        'images/new-techverse-17.png'
+      ],
+      impact: [
+        { n: '50K+', l: 'Participants' },
+        { n: '2 Days', l: 'Event Duration' },
+        { n: '2025年', l: 'コンセプト継続' },
+      ]
+    },
+    {
+      id: 6,
+      title: 'LINE PLACE',
+      subtitle: 'Service Branding',
+      cat: 'Service Branding',
+      year: '2024',
+      cover: 'images/cover-hq-lineplace.jpeg',
+      tags: ['Service Branding','Mascot Design','Illustration','iF Award'],
+      desc: '<strong>LINE発の口コミ＋マップサービスのブランドデザインとマスコット開発のリードを担当。</strong>1億7300万人のユーザーがアクセスできる利点を活かし、フレンドリーなトーンを採用しました。ロゴデザインやマスコット、イベントを通じてブランドの一貫性を強化し、サービス認知向上に貢献。この成果は高く評価され、2023年にiF Design Awardを受賞しました。',
+      gallery: [
+        'images/new-line-place-2.png','images/new-line-place-3.png','images/new-line-place-4.png',
+        'images/new-line-place-5.png','images/new-line-place-6.png','images/new-line-place-7.png',
+        'images/new-line-place-8.png','images/new-line-place-9.png','images/new-line-place-10.png',
+        'images/new-line-place-11.png'
+      ],
+      impact: [
+        { n: '1.73億', l: 'ユーザーリーチ' },
+        { n: 'iF 2023', l: 'Award Winning' },
+        { n: 'Mascot', l: 'Lead Design' },
+      ]
+    },
+    {
+      id: 7,
+      title: 'Karon',
+      subtitle: 'Service Branding',
+      cat: 'Service Branding',
+      year: '2020',
+      cover: 'images/cover-hq-taimen.png',
+      tags: ['Service Branding','Brand Identity','Illustration','UI Direction'],
+      desc: '<strong>ハイエンド占いサービスとして企画された「Karon」のブランドデザイン・イラストレーションのリードを担当。</strong>後に「LINE占い」に統合されましたが、LINEのサービスらしいミニマルスタイルを維持しながら、サービス独自のイラストを開発することでブランドの強化につなげ、ユーザーの共感をより深める方針の基盤となったプロジェクトでした。',
+      gallery: [
+        'images/new-karon-2.png','images/new-karon-3.png','images/new-karon-4.png',
+        'images/new-karon-5.png','images/new-karon-6.png','images/new-karon-7.png',
+        'images/new-karon-8.png','images/new-karon-9.png'
+      ],
+      impact: [
+        { n: 'Brand', l: 'Lead Design' },
+        { n: 'Minimal', l: 'Style System' },
+        { n: 'LINE', l: 'Service Family' },
+      ]
+    },
+    {
+      id: 8,
+      title: 'LY Design Hub',
+      subtitle: 'Internal Archive Platform',
+      cat: 'Internal Identity · Culture',
+      year: '2025',
+      cover: 'images/cover-hq-lyhub.png',
+      tags: ['Internal Platform','Illustration','Design System','Archive','iF Award'],
+      desc: '<strong>LY Corporation DESIGN HUBは、LINEヤフーのブランドアセットとデザインスタイルを集約したアーカイブプラットフォーム。</strong>分散していた情報やルールを整理し、スタイルとガイドラインを明確化することで、LYブランドの一貫性と制作効率の向上を図りました。本プロジェクトでは、イラストスタイルの設計とビジュアル表現の精度向上を担当し、統一された視覚表現の確立に貢献。本取り組みは2026年iFデザインアワードを受賞しました。',
+      gallery: [
+        'images/new-ly-hub-1.png','images/new-ly-hub-2.png','images/new-ly-hub-3.png',
+        'images/new-ly-hub-4.png','images/new-ly-hub-5.png'
+      ],
+      impact: [
+        { n: 'iF 2026', l: 'Award Winning' },
+        { n: 'Archive', l: 'Platform Design' },
+        { n: 'Brand', l: '一貫性向上' },
+      ]
+    },
+    {
+      id: 9,
+      title: 'LINE Conference 2019',
+      subtitle: 'Event Visual Identity',
+      cat: 'Event / Experience Design',
+      year: '2019',
+      cover: 'images/cover-11.jpg',
+      tags: ['Event VI','Space Direction','Novelty Design','Print'],
+      desc: '<strong>LINE最大規模の年次カンファレンスにおいて、VI開発、空間演出のディレクション、ノベルティの制作進行を担当。</strong>極限までシンプルなグラフィックでLINEの現在と未来を表現し、実物コイン型ノベルティを高品質に制作。ハイクオリティな印刷会社との協業により、以後のブランドデザインにも活きる制作体制を構築しました。',
+      gallery: [
+        'images/new-line-conf-1.png','images/new-line-conf-2.png','images/new-line-conf-3.png',
+        'images/new-line-conf-4.png','images/new-line-conf-5.png','images/new-line-conf-6.png',
+        'images/new-line-conf-7.png','images/new-line-conf-8.png'
+      ],
+      impact: [
+        { n: 'LINE', l: '最大規模カンファ' },
+        { n: 'VI + 空間', l: 'ディレクション' },
+        { n: 'Coin', l: 'Novelty Design' },
+      ]
+    },
+    {
+      id: 11,
+      title: 'LINE entry',
+      subtitle: 'Product Design · Illustration',
+      cat: 'Product Design',
+      year: '2020',
+      cover: 'images/cover-hq-entry.jpeg',
+      tags: ['Product Design','Illustration','Character Design','Print','Education'],
+      desc: '<strong>プログラミング教育用ボードゲームの開発において、アートディレクションからデザイン・イラストレーションまで、すべての制作工程を担当。</strong>キャラクターデザイナーへのディレクションを行いながらゲームの世界観を統括し、印刷・パッケージ制作会社との協業によって高い品質を実現。教育機関におけるLINE主導のプログラミング教育の推進に貢献しました。',
+      gallery: [
+        'images/new-line-entry-2.png','images/new-line-entry-3.png','images/new-line-entry-4.png',
+        'images/new-line-entry-5.png','images/new-line-entry-6.png'
+      ],
+      impact: [
+        { n: 'Board', l: 'Game Design' },
+        { n: 'Full', l: 'AD Ownership' },
+        { n: 'Education', l: 'Programming' },
+      ]
+    },
+    {
+      id: 12,
+      title: 'Yahoo! MAP',
+      subtitle: 'Communication Design',
+      cat: 'Communication Design',
+      year: '2024',
+      cover: 'images/cover-12.jpg',
+      tags: ['Communication Design','3D Illustration','Motion','KV Design'],
+      desc: '<strong>Mapアプリのリニューアルプロジェクトにおいて、グラフィック・コミュニケーションデザインの開発を推進。</strong>3DイラストとイラストガイドラインNの制作、モーションのディレクションを通じて、マップ上で多様なカテゴリやメディアの特集をハイライトできるサービス特性を表現。サービスの顔となるKVのコンセプト設計から開発までを担い、ブランド認知向上のアプローチを実践しました。',
+      gallery: [
+        'images/new-ymap-1.png','images/new-ymap-2.png','images/new-ymap-3.png',
+        'images/new-ymap-4.png'
+      ],
+      impact: [
+        { n: '3D', l: 'Illustration Lead' },
+        { n: 'Motion', l: 'Direction' },
+        { n: 'KV', l: 'Concept Design' },
+      ]
+    },
+    {
+      id: 10,
+      title: 'LINE Biz Partner Award',
+      subtitle: 'Event Visual Identity',
+      cat: 'Event / Experience Design',
+      year: '2021–2023',
+      cover: 'images/cover-10.jpg',
+      tags: ['Event VI','Trophy Design','Stage Design','Web','Novelty'],
+      desc: '<strong>LINEのビジネスパートナー表彰B2Bイベントのブランディングを担当。</strong>LINEとパートナー企業を象徴する2つの正方形がつながり拡張していく構造をキービジュアルに落とし込み、両社の発展を表現しました。グラフィックデザインを起点にステージ演出、トロフィー、ノベルティ制作のディレクションを行い、特にトロフィーでは素材・構造を含めたカラーの再現に工夫を凝らしています。',
+      gallery: [
+        'images/new-line-biz-2.png','images/new-line-biz-3.png','images/new-line-biz-4.png',
+        'images/new-line-biz-5.png','images/new-line-biz-6.png','images/new-line-biz-7.png',
+        'images/new-line-biz-8.png'
+      ],
+      impact: [
+        { n: '3+', l: 'Years Running' },
+        { n: 'Trophy', l: '素材・構造設計' },
+        { n: '全媒体', l: 'Brand Direction' },
+      ]
+    },
+    {
+      id: 13,
+      title: 'LINE 対面占い',
+      subtitle: 'Service Branding',
+      cat: 'Service Branding',
+      year: '2021',
+      cover: 'images/new-taimen-2.png',
+      tags: ['Service Branding','Illustration','Brand Communication','Design Lead'],
+      desc: '<strong>デザインPJのリーダーとして、他メンバーの成長支援をしながらLINE対面占いサービスのブランドコミュニケーションをデザイン。</strong>占いという抽象度の高いテーマをLINEらしいミニマルな表現へと再構築し、流通額や重要度の高い占い事業を、企業のブランドトーンをリフトしながら発信することができました。',
+      gallery: [
+        'images/new-taimen-1.png','images/new-taimen-2.png','images/new-taimen-3.png'
+      ],
+      impact: [
+        { n: 'Design', l: 'PJ Leader' },
+        { n: 'Brand', l: 'Tone Lift' },
+        { n: 'Team', l: 'Mentoring' },
+      ]
+    },
+    {
+      id: 14,
+      title: 'coconala Design Principle',
+      subtitle: 'Internal Brand · Culture',
+      cat: 'Internal Identity · Culture',
+      year: '2026',
+      cover: 'images/cover-hq-coconala-dp.png',
+      tags: ['Design Principle','Brand Strategy','Internal Culture','Lead Designer'],
+      desc: '<strong>coconala Design Principlesは、ここナラのVision・Missionを実務の判断基準へと翻訳するために策定したデザイン原則。</strong>リードデザイナーとしてチームと協議を重ね、既存表現の整理から原則の言語化、レビュー観点の設計までを担当。抽象的な理念を日々のクリエイティブに接続し、判断の速度と一貫性を高めました。',
+      gallery: [
+        'images/new2-coconala-dp-1.png','images/new2-coconala-dp-2.png','images/new2-coconala-dp-3.png',
+        'images/new2-coconala-dp-4.png','images/new2-coconala-dp-5.png','images/new2-coconala-dp-6.png',
+        'images/new2-coconala-dp-7.png','images/new2-coconala-dp-8.png','images/new2-coconala-dp-9.png',
+        'images/new2-coconala-dp-10.png'
+      ],
+      impact: [
+        { n: 'Vision', l: '実務翻訳' },
+        { n: '判断速度', l: '一貫性向上' },
+        { n: 'Lead', l: 'Designer' },
+      ]
+    },
+    {
+      id: 15,
+      title: 'coconala Summer Event',
+      subtitle: 'Event Branding',
+      cat: 'Event Branding',
+      year: '2025',
+      cover: 'images/cover-hq-summer.jpeg',
+      tags: ['Event VI','Graphic Design','Novelty','Mentoring'],
+      desc: '<strong>ユーザーを多数招待して開催するサマーイベントのVI開発プロジェクト。</strong>既存のここナラトーンを部分的に踏まえた上でロゴ品質を向上し、以後も繰り返し活用できる環境を整えました。リードデザイナーとしてジュニアメンバー2名の成長を支援しながら、グラフィックおよびノベルティ開発を推進。ここナラらしさと夏らしさを直感的に伝えるコンセプチュアルな表現を構築し、例年よりも数ポイント以上高い満足度を獲得しました。',
+      gallery: [
+        'images/new2-coconala-summer-1.png','images/new2-coconala-summer-2.png','images/new2-coconala-summer-3.png',
+        'images/new2-coconala-summer-4.png','images/new2-coconala-summer-5.png','images/new2-coconala-summer-6.png'
+      ],
+      impact: [
+        { n: '満足度', l: '数ポイント向上' },
+        { n: '2名', l: 'Junior Mentor' },
+        { n: 'Novelty', l: 'Design Lead' },
+      ]
+    },
+    {
+      id: 17,
+      title: 'Early Works',
+      subtitle: '2009–2018',
+      cat: 'Previous Career',
+      year: '2009–2018',
+      cover: 'images/cover-17.jpg',
+      tags: ['Advertising','Package Design','Typography','Illustration','Logo Design'],
+      desc: '<strong>大学では広告制作、パッケージデザイン、タイポグラフィ、イラストレーションなど多彩な表現を学び、新卒で入社した広告会社でさまざまな販促デザイン制作に活用。</strong>広告制作のキャリアを通じて、味の素、アサヒ飲料、Googleなど主に大手クライアントとのプロジェクトに携わり、マス広告以外にもロゴやパッケージデザイン、イラストなど多岐にわたる業務を経験しました。',
+      gallery: [
+        'images/new-early-1.png','images/new-early-2.png','images/new-early-3.png',
+        'images/new-early-4.png','images/new-early-5.png','images/new-early-6.png'
+      ],
+      impact: [
+        { n: '大手', l: 'Client Projects' },
+        { n: 'Multi', l: '多分野経験' },
+        { n: '2009', l: '→2018' },
+      ]
+    },
+    {
+      id: 16,
+      title: 'Selected Graphics',
+      subtitle: 'Graphic Design · 3D',
+      cat: 'Graphic Design · 3D',
+      year: '2023',
+      cover: 'images/new-graphics-1.png',
+      tags: ['3D / Blender','Graphic Design','Illustration','Teaching'],
+      desc: '<strong>LINE入社後、新たに3D制作スキルを習得し、様々なプロジェクトに積極的に活用。</strong>継続的な学習意欲でデザイン＋イラスト＋3Dを活用する柔軟な働き方を示し、チームに影響を与えました。またBlenderに関しては、20名程のデザイナーに基礎講座を実施し、同僚の挑戦を支援しました。',
+      gallery: [
+        'images/new-graphics-2.png','images/new-graphics-3.png',
+        'images/new-graphics-4.png','images/new-graphics-5.png','images/new-graphics-6.png'
+      ],
+      impact: [
+        { n: '3D', l: '独学習得' },
+        { n: '20名+', l: 'Blender講師' },
+        { n: 'Design', l: '+Illust+3D' },
+      ]
+    },
+  ];
+
+  /* ─── Random work preview collage (3 per load) ─── */
+  (function() {
+    const pool = PROJECTS.filter(p => p.cover);
+    const shuffled = pool.slice().sort(() => Math.random() - 0.5).slice(0, 3);
+    const grid = document.getElementById('wp-grid');
+    shuffled.forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'wp-item';
+      item.innerHTML = `
+        <img src="${p.cover}" alt="${p.title}" loading="lazy">
+        <div class="wp-label">
+          <div class="wp-label-cat">${p.cat}</div>
+          <div class="wp-label-name">${p.title}</div>
+        </div>`;
+      item.addEventListener('click', () => openDetail(p));
+      grid.appendChild(item);
+    });
+  })();
+
+  /* ─── Build work grid ─── */
+  const wg = document.getElementById('wg');
+  PROJECTS.forEach(p => {
+    const wi = document.createElement('div');
+    wi.className = 'wi' + (p.span ? ' span2' : '');
+    wi.dataset.id = p.id;
+    wi.innerHTML = `
+      <div class="wi-idx">${String(p.id).padStart(2,'0')}</div>
+      <div class="wi-bg"><img src="${p.cover}" alt="${p.title}" loading="lazy"></div>
+      <div class="wi-overlay"></div>
+      <div class="wi-info">
+        <div class="wi-cat">${p.cat}</div>
+        <div class="wi-name">${p.title}</div>
+      </div>
+    `;
+    wi.addEventListener('click', () => openDetail(p));
+    wg.appendChild(wi);
+  });
+
+  /* ─── Detail Panel ─── */
+  const overlay = document.getElementById('detail-overlay');
+  const panel = document.getElementById('detail-panel');
+
+  function openDetail(p) {
+    // Hero image
+    document.getElementById('dpHeroImg').src = p.cover;
+    document.getElementById('dpHeroImg').alt = p.title;
+
+    // Meta row
+    document.getElementById('dpCat').textContent = p.cat;
+    document.getElementById('dpYear').textContent = p.year;
+    document.getElementById('dpTitle').textContent = p.title;
+    document.getElementById('dpSubtitle').textContent = p.subtitle || '';
+
+    // Purpose (PJ objective) — shown if p.purpose exists
+    const purEl = document.getElementById('dpPurpose');
+    if (p.purpose) {
+      purEl.innerHTML = `<div class="dp-purpose">
+        <div class="dp-purpose-label">Project Objective</div>
+        ${p.purpose}
+      </div>`;
+    } else {
+      purEl.innerHTML = '';
+    }
+
+    // Overview eyebrow + desc
+    document.getElementById('dpDesc').innerHTML =
+      `<div class="dp-eyebrow">Overview</div>` + p.desc;
+
+    // Skills & Role eyebrow + role text + tags  (margin-top:0 = flush after purpose)
+    document.getElementById('dpTags').innerHTML =
+      `<div class="dp-eyebrow" style="margin-top:0">Skills &amp; Role</div>
+      <div class="dp-role">` +
+      (p.role ? `<p class="dp-role-text">${p.role}</p>` : '') +
+      p.tags.map(t => `<span class="dp-tag">${t}</span>`).join('') +
+      `</div>`;
+
+    // Process section
+    const procEl = document.getElementById('dpProcess');
+    if (p.processGroups && p.processGroups.length > 0) {
+      let phaseIdx = 0;
+      let procHtml = `<div class="dp-eyebrow">Process</div>
+        <div class="dp-process-groups">`;
+      p.processGroups.forEach(group => {
+        procHtml += `<div class="dp-phase-group">
+          <div class="dp-phase-group-dur">${group.duration || ''}</div>
+          <div class="dp-phase-group-cards" style="--cols:${group.phases.length}">`;
+        group.phases.forEach(ph => {
+          phaseIdx++;
+          procHtml += `<div class="dp-phase-card">
+            <div class="dp-phase-num">Phase ${phaseIdx}</div>
+            <div class="dp-phase-label">${ph.name}</div>
+            <div class="dp-phase-desc">${ph.desc}</div>
+          </div>`;
+        });
+        procHtml += `</div></div>`;
+      });
+      procHtml += `</div>`;
+      procEl.innerHTML = procHtml;
+    } else {
+      procEl.innerHTML = '';
+    }
+
+    // Gallery eyebrow + images
+    const gEl = document.getElementById('dpGallery');
+    if (p.gallery && p.gallery.length > 0) {
+      gEl.innerHTML = `<div class="dp-eyebrow">Work Images</div>
+        <div class="dp-gallery">` +
+        p.gallery.map(src => `<img src="${src}" alt="" loading="lazy">`).join('') +
+        `</div>`;
+    } else {
+      gEl.innerHTML = '';
+    }
+
+    // Impact eyebrow + grid
+    const iEl = document.getElementById('dpImpact');
+    iEl.innerHTML = `<div class="dp-eyebrow">Impact &amp; Results</div>
+      <div class="dp-impact-grid">
+        ${p.impact.map(i => `
+          <div class="dp-impact-cell">
+            <div class="dp-impact-n">${i.n}</div>
+            <div class="dp-impact-l">${i.l}</div>
+          </div>`).join('')}
+      </div>`;
+
+    // Open panel
+    panel.scrollTop = 0;
+    overlay.classList.add('open');
+    panel.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDetail() {
+    overlay.classList.remove('open');
+    panel.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('dpCloseBtn').addEventListener('click', closeDetail);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeDetail(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+  /* ─── Cursor ─── */
+  const cur = document.getElementById('cur'), ring = document.getElementById('cur-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+  (function loop(){ rx+=(mx-rx)*.1; ry+=(my-ry)*.1; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+  document.querySelectorAll('a,button,.wi').forEach(el=>{
+    el.addEventListener('mouseenter',()=>ring.classList.add('on'));
+    el.addEventListener('mouseleave',()=>ring.classList.remove('on'));
+  });
+
+  /* ─── Nav scroll ─── */
+  window.addEventListener('scroll',()=>{ document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20); });
+
+  /* ─── Marquee ─── */
+  const tags=['Design Leadership','Art Direction','Brand Strategy','iF Design Award 2023','Corporate Rebranding','Visual Identity','3DCG Illustration','Design Systems','50,000+ Participants','Tokyo · Japan','Creative Direction','13 Years'];
+  const mq=document.getElementById('mq');
+  [...tags,...tags].forEach(t=>{ const d=document.createElement('div'); d.className='mq-item'; d.innerHTML=`<span class="mq-sep"></span>${t}`; mq.appendChild(d); });
+
+  /* ─── Loader ─── */
+  const loader=document.getElementById('loader');
+  const ldTl=gsap.timeline({delay:.1});
+  ldTl
+    .to('#ldLine',{width:'100%',duration:1.8,ease:'power2.inOut'})
+    .to('#ln1',{y:'0%',duration:.9,ease:'power3.out'},'-=1.4')
+    .to('#ln2',{y:'0%',duration:.9,ease:'power3.out'},'-=.75')
+    .to('#lm',{y:'0%',duration:.7,ease:'power3.out'},'-=.5')
+    .to(loader,{yPercent:-100,duration:1.1,ease:'power3.inOut',delay:.5,
+      onComplete:()=>{ loader.style.display='none'; heroReveal(); }});
+
+  function heroReveal(){
+    const tl=gsap.timeline({defaults:{ease:'power2.out'}});
+    tl.to('#hYear',{opacity:1,duration:.7})
+      .to('#hn1',{y:'0%',duration:1.1,ease:'power3.out'},'-=.4')
+      .to('#hn2',{y:'0%',duration:1.1,ease:'power3.out'},'-=.85')
+      .to('#hRole',{opacity:1,duration:.7},'-=.5')
+      .to(['#hDesc','#hFootR'],{opacity:1,duration:.9,stagger:.1},'-=.5');
+  }
+
+  /* ─── Scroll animations ─── */
+  gsap.from('.about-statement',{ scrollTrigger:{trigger:'#about',start:'top 70%'}, clipPath:'inset(0 0 100% 0)',opacity:0,duration:1.1,ease:'power3.out'});
+  gsap.from('.st-cell',{ scrollTrigger:{trigger:'.stat-table',start:'top 78%'}, opacity:0,y:30,duration:.9,stagger:.1,ease:'power2.out'});
+
+  document.querySelectorAll('.cnt').forEach(el=>{
+    const to=+el.dataset.to;
+    ScrollTrigger.create({trigger:el,start:'top 82%',
+      onEnter:()=>gsap.to({v:0},{v:to,duration:1.8,ease:'power2.out',
+        onUpdate(){ el.textContent=Math.floor(this.targets()[0].v).toLocaleString(); }})});
+  });
+
+  gsap.from('.award-row',{ scrollTrigger:{trigger:'.award-head',start:'top 80%'}, x:-20,opacity:0,duration:.7,stagger:.09,ease:'power2.out'});
+  gsap.from('.work-ttl',{ scrollTrigger:{trigger:'#work',start:'top 75%'}, clipPath:'inset(0 0 100% 0)',opacity:0,duration:1.0,ease:'power3.out'});
+  gsap.from('.wi',{ scrollTrigger:{trigger:'#wg',start:'top 85%'}, opacity:0,y:40,duration:.8,stagger:.05,ease:'power2.out'});
+  gsap.from('.skills-intro',{ scrollTrigger:{trigger:'#skills',start:'top 72%'}, clipPath:'inset(0 0 100% 0)',opacity:0,duration:1.0,ease:'power3.out'});
+  /* Expertise bar animation */
+  ScrollTrigger.create({
+    trigger:'#skBarList', start:'top 80%',
+    once:true,
+    onEnter(){
+      document.querySelectorAll('.sk-bar-fill').forEach((el,i)=>{
+        setTimeout(()=>{ el.style.width = el.dataset.w + '%'; }, i * 60);
+      });
+      gsap.from('.sk-bar-item',{ opacity:0, y:16, duration:.6, stagger:.05, ease:'power2.out' });
+    }
+  });
+  gsap.from('.contact-ttl',{ scrollTrigger:{trigger:'#contact',start:'top 72%'}, clipPath:'inset(0 0 100% 0)',opacity:0,duration:1.0,ease:'power3.out'});
+  gsap.from('.contact-right',{ scrollTrigger:{trigger:'#contact',start:'top 68%'}, opacity:0,y:30,duration:.9,delay:.2,ease:'power2.out'});
+</script>
+</body>
+</html>
