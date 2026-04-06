@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
@@ -261,12 +262,13 @@
     .dp-gallery .tall { aspect-ratio:4/3; object-fit:cover; }
 
     /* Impact */
-    .dp-impact { padding-top:40px; border-top:1px solid var(--border); }
-    .dp-impact-head { font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#8C8A86; margin-bottom:24px; }
-    .dp-impact-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); }
-    .dp-impact-cell { background:var(--surface); padding:24px 20px; }
-    .dp-impact-n { font-family:'Syne',sans-serif; font-size:26px; font-weight:700; color:var(--accent); margin-bottom:6px; }
-    .dp-impact-l { font-size:12px; color:#A8A6A0; letter-spacing:0.04em; }
+    .dp-impact { padding-top:0; }
+    .dp-impact-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:0; }
+    .dp-impact-cell { background:var(--subtle); padding:14px 20px 18px; border-radius:4px; display:flex; flex-direction:column; gap:8px; }
+    .dp-impact-icon { font-size:30px; color:var(--accent); height:36px; overflow:hidden; display:flex; align-items:center; font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 30; }
+    .dp-impact-n { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; color:var(--text); line-height:1.25; }
+    .dp-impact-l { font-size:12px; color:#A8A6A0; letter-spacing:0.02em; }
+    .dp-impact-desc { font-size:13px; line-height:1.95; color:#A8A6A0; margin-top:20px; }
 
     /* ── Skills ── */
     #skills { padding:120px 56px; background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
@@ -640,7 +642,7 @@
     /* ───── 横長3枚 ───── */
     {
       id: 1, span: true,
-      title: 'LY Corporation',
+      title: 'LY Corporate Branding',
       subtitle: 'Corporate Branding · Visual Identity',
       cat: 'Corporate Branding',
       year: '2024',
@@ -674,10 +676,11 @@
         },
       ],
       impact: [
-        { n: '6ヶ月', l: '3社合同開発' },
-        { n: 'Brand', l: 'Lead Member' },
-        { n: 'Photo', l: 'Direction' },
-      ]
+        { icon: 'mediation', iconSize: '22px', n: 'Confident', l: 'Decision-Making' },
+        { icon: 'layers', n: 'Decision-Ready', l: 'Assets' },
+        { icon: 'groups', n: 'Small Team,', l: 'Large Brand' },
+      ],
+      impactDesc: '多様な試案と「あり得た選択肢」を含めて提示することで、議論を抽象論から具体的な判断フェーズへと導き、経営層・事業側が安心して意思決定できる状態を構築しました。結果として、複数部署・多職種が関与する大規模なブランド統合プロジェクトにおいて、デザイン推進の中核メンバーとしてブランド基盤の構築・実装を担い、社内におけるブランド理解と活用を加速させることができました。',
     },
     {
       id: 2, span: true,
@@ -695,9 +698,9 @@
         'images/new-cc-12.png','images/new-cc-13.png','images/new-cc-14.png'
       ],
       impact: [
-        { n: '1,500+', l: 'Participants' },
-        { n: '13+', l: 'Events Held' },
-        { n: 'iF 2023', l: 'Award Winning' },
+        { icon: 'celebration', n: '1,500+', l: 'Participants' },
+        { icon: 'event_repeat', n: '13+', l: 'Events Held' },
+        { icon: 'emoji_events', n: 'iF 2023', l: 'Award Winning' },
       ]
     },
     {
@@ -716,9 +719,9 @@
         'images/new-connect-one-10.png'
       ],
       impact: [
-        { n: 'iF 2023', l: 'Award Winning' },
-        { n: 'Top 1', l: '10名コンペ採用' },
-        { n: '全社', l: 'ミッション浸透' },
+        { icon: 'emoji_events', n: 'iF 2023', l: 'Award Winning' },
+        { icon: 'workspace_premium', n: 'Top 1', l: '10名コンペ採用' },
+        { icon: 'corporate_fare', n: '全社', l: 'ミッション浸透' },
       ]
     },
     /* ───── 2列 ×7行 ───── */
@@ -737,9 +740,9 @@
         'images/new-coconala-guide-6.png','images/new-coconala-guide-7.png'
       ],
       impact: [
-        { n: '2017以来', l: '初のアップデート' },
-        { n: '工数', l: '大幅削減' },
-        { n: 'Brand', l: 'System Design' },
+        { icon: 'history', n: '2017以来', l: '初のアップデート' },
+        { icon: 'speed', n: '工数', l: '大幅削減' },
+        { icon: 'design_services', n: 'Brand', l: 'System Design' },
       ]
     },
     {
@@ -759,9 +762,9 @@
         'images/new-techverse-17.png'
       ],
       impact: [
-        { n: '50K+', l: 'Participants' },
-        { n: '2 Days', l: 'Event Duration' },
-        { n: '2025年', l: 'コンセプト継続' },
+        { icon: 'groups', n: '50K+', l: 'Participants' },
+        { icon: 'calendar_month', n: '2 Days', l: 'Event Duration' },
+        { icon: 'refresh', n: '2025年', l: 'コンセプト継続' },
       ]
     },
     {
@@ -780,9 +783,9 @@
         'images/new-line-place-11.png'
       ],
       impact: [
-        { n: '1.73億', l: 'ユーザーリーチ' },
-        { n: 'iF 2023', l: 'Award Winning' },
-        { n: 'Mascot', l: 'Lead Design' },
+        { icon: 'group', n: '1.73億', l: 'ユーザーリーチ' },
+        { icon: 'emoji_events', n: 'iF 2023', l: 'Award Winning' },
+        { icon: 'pets', n: 'Mascot', l: 'Lead Design' },
       ]
     },
     {
@@ -800,9 +803,9 @@
         'images/new-karon-8.png','images/new-karon-9.png'
       ],
       impact: [
-        { n: 'Brand', l: 'Lead Design' },
-        { n: 'Minimal', l: 'Style System' },
-        { n: 'LINE', l: 'Service Family' },
+        { icon: 'design_services', n: 'Brand', l: 'Lead Design' },
+        { icon: 'crop_square', n: 'Minimal', l: 'Style System' },
+        { icon: 'diversity_1', n: 'LINE', l: 'Service Family' },
       ]
     },
     {
@@ -819,9 +822,9 @@
         'images/new-ly-hub-4.png','images/new-ly-hub-5.png'
       ],
       impact: [
-        { n: 'iF 2026', l: 'Award Winning' },
-        { n: 'Archive', l: 'Platform Design' },
-        { n: 'Brand', l: '一貫性向上' },
+        { icon: 'emoji_events', n: 'iF 2026', l: 'Award Winning' },
+        { icon: 'folder_open', n: 'Archive', l: 'Platform Design' },
+        { icon: 'verified', n: 'Brand', l: '一貫性向上' },
       ]
     },
     {
@@ -839,9 +842,9 @@
         'images/new-line-conf-7.png','images/new-line-conf-8.png'
       ],
       impact: [
-        { n: 'LINE', l: '最大規模カンファ' },
-        { n: 'VI + 空間', l: 'ディレクション' },
-        { n: 'Coin', l: 'Novelty Design' },
+        { icon: 'stadium', n: 'LINE', l: '最大規模カンファ' },
+        { icon: 'spatial_audio', n: 'VI + 空間', l: 'ディレクション' },
+        { icon: 'toll', n: 'Coin', l: 'Novelty Design' },
       ]
     },
     {
@@ -858,9 +861,9 @@
         'images/new-line-entry-5.png','images/new-line-entry-6.png'
       ],
       impact: [
-        { n: 'Board', l: 'Game Design' },
-        { n: 'Full', l: 'AD Ownership' },
-        { n: 'Education', l: 'Programming' },
+        { icon: 'extension', n: 'Board', l: 'Game Design' },
+        { icon: 'star', n: 'Full', l: 'AD Ownership' },
+        { icon: 'school', n: 'Education', l: 'Programming' },
       ]
     },
     {
@@ -877,9 +880,9 @@
         'images/new-ymap-4.png'
       ],
       impact: [
-        { n: '3D', l: 'Illustration Lead' },
-        { n: 'Motion', l: 'Direction' },
-        { n: 'KV', l: 'Concept Design' },
+        { icon: 'view_in_ar', n: '3D', l: 'Illustration Lead' },
+        { icon: 'animation', n: 'Motion', l: 'Direction' },
+        { icon: 'image', n: 'KV', l: 'Concept Design' },
       ]
     },
     {
@@ -897,9 +900,9 @@
         'images/new-line-biz-8.png'
       ],
       impact: [
-        { n: '3+', l: 'Years Running' },
-        { n: 'Trophy', l: '素材・構造設計' },
-        { n: '全媒体', l: 'Brand Direction' },
+        { icon: 'restart_alt', n: '3+', l: 'Years Running' },
+        { icon: 'emoji_events', n: 'Trophy', l: '素材・構造設計' },
+        { icon: 'campaign', n: '全媒体', l: 'Brand Direction' },
       ]
     },
     {
@@ -915,9 +918,9 @@
         'images/new-taimen-1.png','images/new-taimen-2.png','images/new-taimen-3.png'
       ],
       impact: [
-        { n: 'Design', l: 'PJ Leader' },
-        { n: 'Brand', l: 'Tone Lift' },
-        { n: 'Team', l: 'Mentoring' },
+        { icon: 'manage_accounts', n: 'Design', l: 'PJ Leader' },
+        { icon: 'trending_up', n: 'Brand', l: 'Tone Lift' },
+        { icon: 'supervisor_account', n: 'Team', l: 'Mentoring' },
       ]
     },
     {
@@ -936,9 +939,9 @@
         'images/new2-coconala-dp-10.png'
       ],
       impact: [
-        { n: 'Vision', l: '実務翻訳' },
-        { n: '判断速度', l: '一貫性向上' },
-        { n: 'Lead', l: 'Designer' },
+        { icon: 'translate', n: 'Vision', l: '実務翻訳' },
+        { icon: 'bolt', n: '判断速度', l: '一貫性向上' },
+        { icon: 'star', n: 'Lead', l: 'Designer' },
       ]
     },
     {
@@ -955,9 +958,9 @@
         'images/new2-coconala-summer-4.png','images/new2-coconala-summer-5.png','images/new2-coconala-summer-6.png'
       ],
       impact: [
-        { n: '満足度', l: '数ポイント向上' },
-        { n: '2名', l: 'Junior Mentor' },
-        { n: 'Novelty', l: 'Design Lead' },
+        { icon: 'thumb_up', n: '満足度', l: '数ポイント向上' },
+        { icon: 'school', n: '2名', l: 'Junior Mentor' },
+        { icon: 'card_giftcard', n: 'Novelty', l: 'Design Lead' },
       ]
     },
     {
@@ -974,9 +977,9 @@
         'images/new-early-4.png','images/new-early-5.png','images/new-early-6.png'
       ],
       impact: [
-        { n: '大手', l: 'Client Projects' },
-        { n: 'Multi', l: '多分野経験' },
-        { n: '2009', l: '→2018' },
+        { icon: 'business_center', n: '大手', l: 'Client Projects' },
+        { icon: 'auto_awesome', n: 'Multi', l: '多分野経験' },
+        { icon: 'history', n: '2009', l: '→2018' },
       ]
     },
     {
@@ -993,9 +996,9 @@
         'images/new-graphics-4.png','images/new-graphics-5.png','images/new-graphics-6.png'
       ],
       impact: [
-        { n: '3D', l: '独学習得' },
-        { n: '20名+', l: 'Blender講師' },
-        { n: 'Design', l: '+Illust+3D' },
+        { icon: 'view_in_ar', n: '3D', l: '独学習得' },
+        { icon: 'cast_for_education', n: '20名+', l: 'Blender講師' },
+        { icon: 'palette', n: 'Design', l: '+Illust+3D' },
       ]
     },
   ];
@@ -1119,10 +1122,12 @@
       <div class="dp-impact-grid">
         ${p.impact.map(i => `
           <div class="dp-impact-cell">
+            ${i.icon ? `<span class="material-symbols-outlined dp-impact-icon" style="${i.iconSize ? `font-size:${i.iconSize}` : ''}">${i.icon}</span>` : ''}
             <div class="dp-impact-n">${i.n}</div>
-            <div class="dp-impact-l">${i.l}</div>
+            ${i.l ? `<div class="dp-impact-l">${i.l}</div>` : ''}
           </div>`).join('')}
-      </div>`;
+      </div>
+      ${p.impactDesc ? `<p class="dp-impact-desc">${p.impactDesc}</p>` : ''}`;
 
     // Open panel
     panel.scrollTop = 0;
