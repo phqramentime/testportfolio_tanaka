@@ -46,7 +46,7 @@
     .ld-name.sm { font-size:clamp(14px,2vw,22px); font-weight:400; letter-spacing:0.18em; margin-top:12px; }
     .ld-meta { font-size:11px; letter-spacing:0.18em; color:var(--muted); text-transform:uppercase; overflow:hidden; }
     .ld-meta span { display:block; transform:translateY(110%); }
-    .ld-line { position:absolute; bottom:0; left:0; height:2px; width:0; background:var(--accent); }
+    .ld-line { position:absolute; bottom:0; left:0; height:2px; width:0; background:linear-gradient(to right, var(--accent), #006FFF); }
 
     /* ── Nav ── */
     nav { position:fixed; top:0; left:0; right:0; z-index:500; padding:0 56px; height:60px; display:flex; align-items:center; justify-content:space-between; }
@@ -142,7 +142,6 @@
       transition:transform .5s cubic-bezier(.25,.46,.45,.94);
     }
     .wi:hover .wi-info { transform:translateY(0); }
-    .wi-idx { position:absolute; top:20px; left:28px; z-index:2; font-size:11px; letter-spacing:0.12em; color:rgba(255,255,255,0.4); font-weight:400; }
     .wi-cat { font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.65); margin-bottom:6px; }
     .wi-name { font-family:'Syne',sans-serif; font-size:clamp(15px,1.8vw,24px); font-weight:700; color:#fff; letter-spacing:-0.02em; line-height:1.15; }
 
@@ -267,8 +266,8 @@
     .dp-impact-cell { background:var(--subtle); padding:14px 20px 18px; border-radius:4px; display:flex; flex-direction:column; gap:8px; }
     .dp-impact-icon { font-size:30px; color:var(--accent); height:36px; overflow:hidden; display:flex; align-items:center; font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 30; }
     .dp-impact-n { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; color:var(--text); line-height:1.25; }
-    .dp-impact-l { font-size:12px; color:#A8A6A0; letter-spacing:0.02em; }
-    .dp-impact-desc { font-size:13px; line-height:1.95; color:#A8A6A0; margin-top:20px; }
+    .dp-impact-l { font-size:14px; color:#A8A6A0; letter-spacing:0.02em; }
+    .dp-impact-desc { font-size:15px; line-height:1.95; color:#A8A6A0; margin-top:20px; }
 
     /* ── Skills ── */
     #skills { padding:120px 56px; background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
@@ -369,16 +368,20 @@
       border-right:1px solid var(--border);
     }
     .dp-phase-card:last-child { border-right:none; }
+    .dp-phase-icon {
+      font-size:28px; color:var(--accent); display:block;
+      margin-bottom:10px; font-variation-settings:'wght' 300;
+    }
     .dp-phase-num {
-      font-size:9px; letter-spacing:0.18em; text-transform:uppercase;
+      font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
       color:var(--accent); font-weight:500;
     }
     .dp-phase-label {
-      font-size:11px; font-weight:600; color:var(--text);
+      font-size:13px; font-weight:600; color:var(--text);
       line-height:1.35; margin-bottom:2px;
     }
     .dp-phase-desc {
-      font-size:10.5px; color:var(--muted); line-height:1.65;
+      font-size:12px; color:#8C8A86; line-height:1.7;
       flex:1; white-space:pre-line;
     }
 
@@ -388,6 +391,17 @@
     .f-links { display:flex; gap:24px; list-style:none; }
     .f-links a { font-size:11px; color:var(--muted); text-decoration:none; transition:color .2s; }
     .f-links a:hover { color:var(--text); }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      #about { padding:80px 24px; }
+      .about-layout { grid-template-columns:1fr; gap:56px; }
+
+      #skills { padding:80px 24px; }
+      .skills-wrap { grid-template-columns:1fr; gap:40px; }
+      .skills-intro { margin-top:0; }
+      .sk-bar-groups { grid-template-columns:1fr 1fr; gap:32px 24px; margin-top:40px; }
+    }
   </style>
 </head>
 <body>
@@ -397,13 +411,13 @@
 
 <div id="loader">
   <div class="ld-line" id="ldLine"></div>
-  <div class="ld-name"><span id="ln1">ALWAYS</span></div>
-  <div class="ld-name"><span id="ln2">BECOMING.</span></div>
+  <div class="ld-name"><span id="ln1">Shaping</span></div>
+  <div class="ld-name"><span id="ln2">Clarity.</span></div>
   <div class="ld-meta"><span id="lm">Brand Strategy · Art Direction · Tokyo</span></div>
 </div>
 
 <nav id="nav">
-  <a class="nav-logo" href="#">HT</a>
+  <a class="nav-logo" href="#">HIROKO TANAKA</a>
   <div class="nav-r">
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
@@ -430,10 +444,8 @@
   </div>
   <div class="hero-foot">
     <p class="hero-desc" id="hDesc">
-      事業の意思決定をデザインで前に進める、<br>
-      アートディレクター / デザインリーダー。<br>
-      コーポレート、サービス、イベントの<br>
-      ブランドをリードしてきた13年。
+      思考を整理し、<br>
+      意思決定を支えるデザイン。
     </p>
     <div class="hero-foot-r" id="hFootR">
       <div class="hero-loc">Tokyo, Japan</div>
@@ -689,7 +701,10 @@
       cat: 'Internal Identity · Culture',
       year: '2023',
       cover: 'images/cover-hq-cc.jpeg',
-      tags: ['Internal Branding','VI Design','Illustration','3DCG','iF Award'],
+      thumb: 'images/05-01-Creative Center_08_cover_thumbnail.png',
+      purpose: 'LINEのデザイナー育成プログラム「Creative Center」のVI基盤を設計・構築する。継続運用を前提とした一貫したブランド展開を通じて、社員の参加促進とデザイン組織の文化醸成を実現する。',
+      role: 'デザイナー成長支援プログラムのブランド設計・制作リード。継続運用を前提としたVI設計。',
+      tags: ['Design Lead','Visual Identity','Illustration','3DCG','Media Direction','iF Award'],
       desc: '<strong>LINEのデザイナー育成を目的として3つのイベントで構成された本プログラム。</strong>社員の参加促進と認知拡大が課題でした。ブランドデザインリードを担当し、「クリエイティブな人・もの・ことにフォーカスする」というコンセプトで一貫したブランディングを行い、3Dと手描きのマスコットイラストを組み合わせた新鮮なデザインを開発。KVデザインは各プログラムの特性を反映しつつ、カラーバリエーションで多様性と秩序を示しました。',
       gallery: [
         'images/new-cc-2.png','images/new-cc-3.png','images/new-cc-4.png',
@@ -697,11 +712,29 @@
         'images/new-cc-9.png','images/new-cc-10.png','images/new-cc-11.png',
         'images/new-cc-12.png','images/new-cc-13.png','images/new-cc-14.png'
       ],
+      processGroups: [
+        {
+          duration: '2ヶ月',
+          phases: [
+            { name: 'Align',   desc: '目的・対象者\n成功条件の整理' },
+            { name: 'Options', desc: '複数案設計\n展開シミュレーション' },
+            { name: 'Define',  desc: 'トーン / 世界観\nVI設計' },
+          ]
+        },
+        {
+          duration: '2ヶ月',
+          phases: [
+            { name: 'Deploy', desc: '展開設計\n制作ディレクション\nマスコット開発' },
+            { name: 'Update', desc: '運用 / レビュー\n改善' },
+          ]
+        },
+      ],
       impact: [
-        { icon: 'celebration', n: '1,500+', l: 'Participants' },
-        { icon: 'event_repeat', n: '13+', l: 'Events Held' },
         { icon: 'emoji_events', n: 'iF 2023', l: 'Award Winning' },
-      ]
+        { icon: 'groups', n: '1,500+', l: 'Program Participants' },
+        { icon: 'event_repeat', n: '13+', l: 'Programs Delivered' },
+      ],
+      impactDesc: '学習プログラムとしての体験設計を起点に、表現方針と制作ルールを統合し、Web・イベント・配布物まで一貫したブランド展開を構築しました。プログラムの個性を可視化することで、全13回以上の開催で1,500名超が参加。私自身も登壇し、デザイナーのスキル向上と組織文化の醸成に貢献しました。これらの成果が評価され、2023年 iF Design Award を受賞しています。',
     },
     {
       id: 4, span: true,
@@ -710,7 +743,9 @@
       cat: 'Internal Identity · Culture',
       year: '2025',
       cover: 'images/cover-02.jpg',
-      tags: ['Brand Identity','VI Design','iF Award','Internal Branding'],
+      purpose: 'LINE公式アカウントを起点とした横断ビジネスプラットフォーム「Connect One」の思想を視覚化・言語化する。事業ミッションを体現するVI設計と展開設計によって、全社的なブランド理解と施策推進を後押しする。',
+      role: '事業ソリューションを体現するVI設計、制作リード。施策展開によるインナーブランディングへの貢献。',
+      tags: ['Design Lead','Branding','Visual Identity','Media Direction','Production'],
       desc: '<strong>LINE公式アカウントをすべての法人向けサービスの起点として、集客から予約・購買・CRMまでを一気通貫で実現するための横断ビジネスプラットフォーム構想のビジュアライズPJ。</strong>VXデザイナー10名によるコンペの中から、コンセプトを最も的確に体現している案として採用されました。ブランドデザインを通じて全社的なフェーズ・ミッションの浸透に寄与し、デザインとガイドラインはLINEヤフーのビジネスイベントなどで継続的に活用されています。',
       gallery: [
         'images/new-connect-one-3.png',
@@ -718,11 +753,28 @@
         'images/new-connect-one-7.png','images/new-connect-one-8.png','images/new-connect-one-9.png',
         'images/new-connect-one-10.png'
       ],
+      processGroups: [
+        {
+          duration: '1.5ヶ月',
+          phases: [
+            { name: 'Framing',  desc: '課題整理\nコンセプト抽出' },
+            { name: 'Options',  desc: '複数案設計' },
+            { name: 'Decision', desc: 'コンセプト確定\nVI設計 / 展開ガイド制作' },
+          ]
+        },
+        {
+          duration: '1.5ヶ月',
+          phases: [
+            { name: 'Execution', desc: '多接点への展開' },
+            { name: 'Update',    desc: 'ガイドライン\n運用 / 拡張' },
+          ]
+        },
+      ],
       impact: [
-        { icon: 'emoji_events', n: 'iF 2023', l: 'Award Winning' },
-        { icon: 'workspace_premium', n: 'Top 1', l: '10名コンペ採用' },
-        { icon: 'corporate_fare', n: '全社', l: 'ミッション浸透' },
-      ]
+        { icon: 'workspace_premium', n: 'Top 1', l: '10名のコンペから選出' },
+        { icon: 'corporate_fare', n: '全社展開', l: 'ミッション浸透に貢献' },
+      ],
+      impactDesc: '事業部が掲げた「CONNECT ONE」というスローガンを起点に、その思想を解釈・翻訳し、具体的なビジュアルと言語・運用可能な表現体系へと落とし込みました。広告・展示・デジタルまで一貫した体験設計により、サービス全体の理解度と認知を整理・明確化し、拡張を前提としたブランド基盤の構築を実現しました。',
     },
     /* ───── 2列 ×7行 ───── */
     {
@@ -732,18 +784,37 @@
       cat: 'Corporate Branding',
       year: '2025',
       cover: 'images/cover-04.jpg',
-      tags: ['Brand Identity','Visual Identity','Brand Guidelines','Logo Design','Color System'],
+      purpose: '2017年以来初となるブランドデザインアップデートで、運用を前提としたビジュアルシステムとガイドラインを構築する。長期的な品質・再現性を担保し、デザイン判断を構造化することで制作効率と一貫性を高める。',
+      role: '運用を前提としたビジュアルシステム設計。長期的な品質・再現性を担保するガイドラインの構築と推進。',
+      tags: ['Design Lead','Graphic Design','Visual Identity','Production','Brand Guidelines'],
       desc: '<strong>2017年以来初となるブランドデザインアップデートにおいて、リードデザイナーとしてガイドライン設計を主導。</strong>社外・社内で共通利用できるロゴおよびグラフィックの運用基盤を再構築し、判断基準を構造化。デジタル環境での安定性・視認性、先進的テックカンパニーとしての信頼感を高めるためのロゴカラー最適化を行い、ブランドを守りながら進化し続ける仕組みを確立。カラー、タイプフェイス、写真、イラスト、アイコンなど主要なビジュアル要素のトーンマナーを網羅したガイド設計・方針策定から運用定着を推進し、属人的だった判断基準を構造化、レビュー工数を大幅に削減しました。',
       gallery: [
         'images/new-coconala-guide-2.png','images/new-coconala-guide-3.png',
         'images/new-coconala-guide-4.png','images/new-coconala-guide-5.png',
         'images/new-coconala-guide-6.png','images/new-coconala-guide-7.png'
       ],
+      processGroups: [
+        {
+          duration: '3.5ヶ月',
+          phases: [
+            { name: 'Framing',  desc: 'ブランドの\n判断軸を定義' },
+            { name: 'Options',  desc: '統一性〜柔軟性\n複数案の設計' },
+            { name: 'Decision', desc: '長期運用を見据えた\n方針策定' },
+          ]
+        },
+        {
+          duration: '1.5ヶ月',
+          phases: [
+            { name: 'Execution', desc: 'ロゴ・カラー・書体\nガイドラインとして体系化' },
+            { name: 'Update',    desc: '社内外での運用\n拡張・改訂前提の設計' },
+          ]
+        },
+      ],
       impact: [
-        { icon: 'history', n: '2017以来', l: '初のアップデート' },
-        { icon: 'speed', n: '工数', l: '大幅削減' },
-        { icon: 'design_services', n: 'Brand', l: 'System Design' },
-      ]
+        { icon: 'speed', n: '約20%', l: '制作工数削減' },
+        { icon: 'account_tree', n: 'Scalable', l: 'System' },
+      ],
+      impactDesc: '長期的な運用を前提に、デザインの判断基準と制作ルール、ロゴガイドラインを含むブランドガイドラインを再設計。制作工数を約20%削減し、社内外の関係者が迷わず同じ品質で運用できる状態を実現。媒体横断での統一感と将来拡張の両立を達成しました。',
     },
     {
       id: 5,
@@ -755,7 +826,8 @@
       tags: ['Event VI','Art Direction','3DCG','Motion','Web'],
       desc: '<strong>LINEとヤフーが初めて合同で開催した技術カンファレンス。</strong>イベントタイトルに込められた言葉を起点に、抽象概念を視覚言語へと翻訳し、キービジュアルを軸としたWeb・会場・映像・広告までの体験設計を担当しました。2022年の開催では5万人規模の参加者・リーチを達成。本ロゴコンセプトは、2025年のイベントデザインにも引き継がれています。',
       gallery: [
-        'images/new-techverse-4.png','images/new-techverse-6.png','images/new-techverse-7.png',
+        'images/240923_HT_portfolio_B_073.png',
+        'images/new-techverse-4.png','images/04-02-Tech-Verse 2022_01.png','images/new-techverse-6.png','images/new-techverse-7.png',
         'images/new-techverse-8.png','images/new-techverse-9.png','images/new-techverse-10.png',
         'images/new-techverse-11.png','images/new-techverse-12.png','images/new-techverse-13.png',
         'images/new-techverse-14.png','images/new-techverse-15.png','images/new-techverse-16.png',
@@ -1012,7 +1084,7 @@
       const item = document.createElement('div');
       item.className = 'wp-item';
       item.innerHTML = `
-        <img src="${p.cover}" alt="${p.title}" loading="lazy">
+        <img src="${p.thumb || p.cover}" alt="${p.title}" loading="lazy">
         <div class="wp-label">
           <div class="wp-label-cat">${p.cat}</div>
           <div class="wp-label-name">${p.title}</div>
@@ -1029,8 +1101,7 @@
     wi.className = 'wi' + (p.span ? ' span2' : '');
     wi.dataset.id = p.id;
     wi.innerHTML = `
-      <div class="wi-idx">${String(p.id).padStart(2,'0')}</div>
-      <div class="wi-bg"><img src="${p.cover}" alt="${p.title}" loading="lazy"></div>
+      <div class="wi-bg"><img src="${p.thumb || p.cover}" alt="${p.title}" loading="lazy"></div>
       <div class="wi-overlay"></div>
       <div class="wi-info">
         <div class="wi-cat">${p.cat}</div>
@@ -1091,7 +1162,8 @@
           <div class="dp-phase-group-cards" style="--cols:${group.phases.length}">`;
         group.phases.forEach(ph => {
           phaseIdx++;
-          procHtml += `<div class="dp-phase-card">
+          procHtml += `<div class="dp-phase-card${ph.icon ? ' dp-phase-card--icon' : ''}">
+            ${ph.icon ? `<span class="material-symbols-outlined dp-phase-icon">${ph.icon}</span>` : ''}
             <div class="dp-phase-num">Phase ${phaseIdx}</div>
             <div class="dp-phase-label">${ph.name}</div>
             <div class="dp-phase-desc">${ph.desc}</div>
