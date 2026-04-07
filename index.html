@@ -394,13 +394,87 @@
 
     /* ── Mobile ── */
     @media (max-width: 768px) {
+      /* Hero */
+      #hero { padding-left:24px; padding-right:24px; }
+      .hero-photo { left:0; }
+      .hero-photo img { object-position:40% 18%; }
+      .hero-photo::after { background:linear-gradient(to top, var(--bg) 0%, rgba(13,13,15,0.7) 30%, rgba(13,13,15,0) 65%); }
+
+      /* Nav */
+      nav { padding:0 20px; }
+      .nav-logo { font-size:12px; letter-spacing:0.08em; white-space:nowrap; }
+      .nav-avail { display:none; }
+      .nav-links { display:none; }
+      .nav-r { gap:0; }
+
+      /* Hamburger button */
+      .nav-hamburger {
+        display:flex; flex-direction:column; justify-content:center; gap:5px;
+        width:36px; height:36px; cursor:pointer;
+        background:none; border:none; padding:4px; position:relative; z-index:1;
+      }
+      .nav-hamburger span {
+        display:block; width:22px; height:1.5px;
+        background:var(--text); border-radius:2px;
+        transition:transform .3s, opacity .3s; transform-origin:center;
+      }
+      .nav-hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+      .nav-hamburger.open span:nth-child(2) { opacity:0; }
+      .nav-hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+
+      /* Drawer */
+      .nav-drawer {
+        position:fixed; top:60px; left:0; right:0;
+        background:rgba(13,13,15,0.96); backdrop-filter:blur(16px);
+        border-bottom:1px solid var(--border);
+        padding:24px 24px 32px;
+        display:flex; flex-direction:column;
+        transform:translateY(-110%);
+        transition:transform .35s cubic-bezier(.19,1,.22,1);
+        z-index:499;
+      }
+      .nav-drawer.open { transform:translateY(0); }
+      .nav-drawer a {
+        font-size:13px; letter-spacing:0.12em; text-transform:uppercase;
+        color:rgba(234,232,227,0.75); text-decoration:none;
+        padding:16px 0; border-bottom:1px solid var(--border);
+        transition:color .2s;
+      }
+      .nav-drawer a:last-child { border-bottom:none; }
+
+      /* Work */
+      #work { padding:60px 0 100px; }
+      .work-header { padding-left:24px; padding-right:24px; margin-bottom:40px; }
+      .wg { grid-template-columns:1fr; gap:1px; }
+      .wi.span2 { grid-column:auto; aspect-ratio:16/9; }
+
+      /* Beyond Design */
+      #beyond { padding:80px 24px 0; }
+      .beyond-hero { width:calc(100% + 48px); margin-left:-24px; }
+      .beyond-hero img { aspect-ratio:16/9; }
+      .beyond-grid { grid-template-columns:1fr; gap:3px; width:calc(100% + 48px); margin-left:-24px; }
+
+      /* Contact */
+      #contact { padding:80px 24px; }
+      .contact-inner { grid-template-columns:1fr; gap:40px; }
+      .contact-ttl { font-size:clamp(40px,11vw,64px); margin-bottom:24px; }
+      .contact-link { font-size:clamp(14px,4vw,18px); word-break:break-all; }
+
+      /* Footer */
+      footer { padding:20px 24px; flex-direction:column; align-items:flex-start; gap:12px; }
+
+      /* About / Skills */
       #about { padding:80px 24px; }
       .about-layout { grid-template-columns:1fr; gap:56px; }
-
       #skills { padding:80px 24px; }
       .skills-wrap { grid-template-columns:1fr; gap:40px; }
       .skills-intro { margin-top:0; }
       .sk-bar-groups { grid-template-columns:1fr 1fr; gap:32px 24px; margin-top:40px; }
+    }
+
+    @media (min-width: 769px) {
+      .nav-hamburger { display:none !important; }
+      .nav-drawer { display:none !important; }
     }
   </style>
 </head>
@@ -425,8 +499,16 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-avail"><div class="nav-dot"></div><span>Available</span></div>
+    <button class="nav-hamburger" aria-label="メニュー" id="navHamburger">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="#about">About</a>
+  <a href="#work">Work</a>
+  <a href="#contact">Contact</a>
+</div>
 
 <section id="hero">
   <div class="hero-photo">
@@ -702,6 +784,7 @@
       year: '2023',
       cover: 'images/cover-hq-cc.jpeg',
       thumb: 'images/05-01-Creative Center_08_cover_thumbnail.png',
+      spThumb: 'images/cover-hq-cc.jpeg',
       purpose: 'LINEのデザイナー育成プログラム「Creative Center」のVI基盤を設計・構築する。継続運用を前提とした一貫したブランド展開を通じて、社員の参加促進とデザイン組織の文化醸成を実現する。',
       role: 'デザイナー成長支援プログラムのブランド設計・制作リード。継続運用を前提としたVI設計。',
       tags: ['Design Lead','Visual Identity','Illustration','3DCG','Media Direction','iF Award'],
@@ -823,7 +906,8 @@
       cat: 'Event / Experience Design',
       year: '2022',
       cover: 'images/cover-hq-techverse.jpeg',
-      tags: ['Event VI','Art Direction','3DCG','Motion','Web'],
+      role: 'コンセプト立案・グラフィック表現設計・各媒体の品質向上。長期運用を見据えたブランド体験の設計。',
+      tags: ['Event VI','Graphic','Visual Identity','Media Direction','3DCG'],
       desc: '<strong>LINEとヤフーが初めて合同で開催した技術カンファレンス。</strong>イベントタイトルに込められた言葉を起点に、抽象概念を視覚言語へと翻訳し、キービジュアルを軸としたWeb・会場・映像・広告までの体験設計を担当しました。2022年の開催では5万人規模の参加者・リーチを達成。本ロゴコンセプトは、2025年のイベントデザインにも引き継がれています。',
       gallery: [
         'images/240923_HT_portfolio_B_073.png',
@@ -833,11 +917,29 @@
         'images/new-techverse-14.png','images/new-techverse-15.png','images/new-techverse-16.png',
         'images/new-techverse-17.png'
       ],
+      processGroups: [
+        {
+          duration: '4ヶ月',
+          phases: [
+            { name: 'Define',   desc: '要件定義・体験のゴール設定' },
+            { name: 'Explore',  desc: '複数のVI設計' },
+            { name: 'Decision', desc: '最終KVの決定支援・コンセプトを体現' },
+          ]
+        },
+        {
+          duration: '1.5ヶ月',
+          phases: [
+            { name: 'Deploy', desc: '会場・Web・動画・告知・ノベルティの品質と一貫性担保' },
+            { name: 'Evolve', desc: 'イベントアセット運用・外部発信' },
+          ]
+        },
+      ],
       impact: [
-        { icon: 'groups', n: '50K+', l: 'Participants' },
-        { icon: 'calendar_month', n: '2 Days', l: 'Event Duration' },
-        { icon: 'refresh', n: '2025年', l: 'コンセプト継続' },
-      ]
+        { icon: 'groups', n: '50K+', l: 'Reach' },
+        { icon: 'mediation', iconSize: '22px', n: 'Unified', l: 'Experience' },
+        { icon: 'refresh', n: 'Scalable', l: 'Design' },
+      ],
+      impactDesc: 'VIの設計では媒体ごとの表現最適化を行いながら品質と一貫性を担保することで体験としての新鮮さと没入感を両立し、50,000人以上の来場者・リーチを記録しました。またシンボルとロゴは長期にわたって運用・拡張に耐えるアセット基盤として構築することができました。',
     },
     {
       id: 6,
@@ -1100,8 +1202,14 @@
     const wi = document.createElement('div');
     wi.className = 'wi' + (p.span ? ' span2' : '');
     wi.dataset.id = p.id;
+    const thumbHtml = p.spThumb
+      ? `<picture>
+          <source media="(max-width:768px)" srcset="${p.spThumb}">
+          <img src="${p.thumb || p.cover}" alt="${p.title}" loading="lazy">
+        </picture>`
+      : `<img src="${p.thumb || p.cover}" alt="${p.title}" loading="lazy">`;
     wi.innerHTML = `
-      <div class="wi-bg"><img src="${p.thumb || p.cover}" alt="${p.title}" loading="lazy"></div>
+      <div class="wi-bg">${thumbHtml}</div>
       <div class="wi-overlay"></div>
       <div class="wi-info">
         <div class="wi-cat">${p.cat}</div>
@@ -1230,6 +1338,20 @@
 
   /* ─── Nav scroll ─── */
   window.addEventListener('scroll',()=>{ document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20); });
+
+  /* ─── Hamburger menu ─── */
+  const hamburger = document.getElementById('navHamburger');
+  const drawer = document.getElementById('navDrawer');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+    });
+  });
 
   /* ─── Marquee ─── */
   const tags=['Design Leadership','Art Direction','Brand Strategy','iF Design Award 2023','Corporate Rebranding','Visual Identity','3DCG Illustration','Design Systems','50,000+ Participants','Tokyo · Japan','Creative Direction','13 Years'];
