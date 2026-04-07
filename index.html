@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hiroko Tanaka — Design Leader</title>
+  <title>Hiroko Tanaka — Brand Designer / Art Director</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
@@ -40,8 +40,8 @@
     #cur-ring.on { width:56px; height:56px; border-color:rgba(234,232,227,0.5); }
 
     /* ── Loader ── */
-    #loader { position:fixed; inset:0; background:var(--bg); z-index:9000; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end; padding:52px 56px; gap:20px; }
-    .ld-name { font-family:'Syne',sans-serif; font-size:clamp(36px,6vw,80px); font-weight:700; letter-spacing:-0.03em; line-height:1; overflow:hidden; }
+    #loader { position:fixed; inset:0; background:var(--bg); z-index:9000; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end; padding:52px 56px; gap:4px; }
+    .ld-name { font-family:'Syne',sans-serif; font-size:clamp(36px,6vw,80px); font-weight:700; letter-spacing:-0.03em; line-height:0.9; overflow:hidden; }
     .ld-name span { display:block; transform:translateY(110%); }
     .ld-name.sm { font-size:clamp(14px,2vw,22px); font-weight:400; letter-spacing:0.18em; margin-top:12px; }
     .ld-meta { font-size:11px; letter-spacing:0.18em; color:var(--muted); text-transform:uppercase; overflow:hidden; }
@@ -64,15 +64,17 @@
     /* ── Hero ── */
     #hero { min-height:100vh; display:grid; grid-template-rows:1fr auto; padding:0 56px; padding-top:60px; position:relative; overflow:hidden; }
     .hero-photo { position:absolute; top:0; right:0; bottom:0; left:42%; z-index:0; overflow:hidden; }
-    .hero-photo img { width:100%; height:100%; object-fit:cover; object-position:center 8%; display:block; }
+    .hero-photo img { width:100%; height:100%; object-fit:cover; object-position:30% 8%; display:block; }
     .hero-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(to right, var(--bg) 0%, rgba(13,13,15,0.55) 28%, rgba(13,13,15,0) 62%); }
-    .hero-main { display:flex; flex-direction:column; justify-content:flex-end; padding-bottom:72px; position:relative; z-index:1; }
+    .hero-main { display:flex; flex-direction:column; justify-content:flex-end; padding-bottom:40px; position:relative; z-index:1; }
     .hero-top-row { display:flex; justify-content:flex-start; margin-bottom:24px; }
     .hero-year { font-size:11px; letter-spacing:0.18em; color:var(--muted); text-transform:uppercase; opacity:0; }
     .hero-role { font-size:11px; letter-spacing:0.18em; color:var(--muted); text-transform:uppercase; opacity:0; margin-top:20px; }
     .hero-name { font-family:'Syne',sans-serif; font-size:clamp(72px,12.5vw,184px); font-weight:700; letter-spacing:-0.04em; line-height:0.88; overflow:hidden; }
     .h-line { overflow:hidden; display:block; }
     .h-line span { display:block; transform:translateY(108%); }
+    #hn1 { letter-spacing:-0.018em; }
+    #hn2 { letter-spacing:-0.043em; }
     .h-line.light span { font-weight:700; color:var(--text); }
     .hero-foot { display:flex; align-items:flex-end; justify-content:space-between; padding:40px 0; border-top:none; position:relative; z-index:1; }
     .hero-foot::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:var(--border); -webkit-mask-image:linear-gradient(to right,black 0%,black 42%,transparent 68%); mask-image:linear-gradient(to right,black 0%,black 42%,transparent 68%); }
@@ -92,7 +94,8 @@
     @keyframes mq { from{transform:translateX(0)}to{transform:translateX(-50%)} }
 
     /* ── About ── */
-    #about { padding:160px 56px; }
+    #about { padding:120px 56px 160px; border-top:1px solid var(--border); }
+    .about-header { margin-bottom:64px; }
     .sec-eyebrow { font-size:10px; letter-spacing:0.26em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:14px; margin-bottom:72px; }
     .sec-eyebrow::before { content:''; width:24px; height:1px; background:var(--muted); }
     .about-layout { display:grid; grid-template-columns:5fr 4fr; gap:120px; align-items:start; }
@@ -113,8 +116,8 @@
     .award-tag.hl { border-color:#007A4A; color:var(--accent); }
 
     /* ── Work ── */
-    #work { padding:80px 56px 160px; }
-    .work-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:64px; padding-bottom:32px; border-bottom:1px solid var(--border); }
+    #work { padding:120px 56px 160px; }
+    .work-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:64px; }
     .work-ttl { font-family:'Syne',sans-serif; font-size:clamp(40px,6vw,84px); font-weight:700; letter-spacing:-0.04em; line-height:0.9; }
     .work-meta { font-size:12px; color:var(--muted); letter-spacing:0.06em; }
 
@@ -306,25 +309,6 @@
     .contact-avail { font-size:12px; color:var(--muted); display:flex; align-items:center; gap:10px; }
     .ca-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); }
 
-    /* ── Work Preview Collage ── */
-    #work-preview { overflow:hidden; }
-    .wp-grid {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      grid-template-rows:380px;
-      gap:2px;
-      background:var(--border);
-    }
-    .wp-item { overflow:hidden; position:relative; cursor:pointer; background:var(--surface); }
-    .wp-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.9s cubic-bezier(.19,1,.22,1); }
-    .wp-item:hover img { transform:scale(1.05); }
-    .wp-item::after { content:''; position:absolute; inset:0; background:rgba(13,13,15,0); transition:background .4s; }
-    .wp-item:hover::after { background:rgba(13,13,15,0.3); }
-    .wp-label { position:absolute; bottom:24px; left:28px; right:28px; z-index:1; opacity:0; transform:translateY(8px); transition:opacity .3s,transform .35s; pointer-events:none; }
-    .wp-item:hover .wp-label { opacity:1; transform:translateY(0); }
-    .wp-label-cat { font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
-    .wp-label-name { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; color:#fff; letter-spacing:-0.02em; line-height:1.2; }
-
     /* ── Detail panel section labels ── */
     .dp-eyebrow {
       font-size:10px; letter-spacing:0.26em; text-transform:uppercase;
@@ -494,8 +478,8 @@
   <a class="nav-logo" href="#">HIROKO TANAKA</a>
   <div class="nav-r">
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
       <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-avail"><div class="nav-dot"></div><span>Available</span></div>
@@ -505,8 +489,8 @@
   </div>
 </nav>
 <div class="nav-drawer" id="navDrawer">
-  <a href="#about">About</a>
   <a href="#work">Work</a>
+  <a href="#about">About</a>
   <a href="#contact">Contact</a>
 </div>
 
@@ -536,14 +520,20 @@
   </div>
 </section>
 
-<section id="work-preview">
-  <div id="wp-grid" class="wp-grid"></div>
-</section>
-
 <div class="mq-wrap"><div class="mq-track" id="mq"></div></div>
 
+<section id="work">
+  <div class="work-header">
+    <h2 class="work-ttl">Selected<br>Work</h2>
+    <div class="work-meta">17 Projects · Click to view</div>
+  </div>
+  <div class="wg" id="wg"></div>
+</section>
+
 <section id="about">
-  <div class="sec-eyebrow">About</div>
+  <div class="about-header">
+    <h2 class="work-ttl">About</h2>
+  </div>
   <div class="about-layout">
     <div class="about-statement">
       事業の意思決定をデザインで前に進める、アートディレクターの田中寛子です。<br><br>
@@ -603,14 +593,6 @@
   </div>
 </section>
 
-<section id="work">
-  <div class="work-header">
-    <h2 class="work-ttl">Selected<br>Work</h2>
-    <div class="work-meta">17 Projects · Click to view</div>
-  </div>
-  <div class="wg" id="wg"></div>
-</section>
-
 <section id="skills">
   <div class="skills-wrap">
     <div>
@@ -621,7 +603,7 @@
       <div class="sk-bar-groups" id="skBarList">
         <!-- ブランドデザイン -->
         <div>
-          <div class="sk-bar-group-head">ブランドデザイン</div>
+          <div class="sk-bar-group-head">Brand Design</div>
           <ul class="sk-bar-list">
             <li class="sk-bar-item"><span class="sk-bar-label">ブランドアイデンティティ</span><span class="sk-bar-pct">95</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="95"></div></div></li>
             <li class="sk-bar-item"><span class="sk-bar-label">ビジュアルアイデンティティ</span><span class="sk-bar-pct">95</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="95"></div></div></li>
@@ -632,7 +614,7 @@
         </div>
         <!-- ディレクション -->
         <div>
-          <div class="sk-bar-group-head">ディレクション</div>
+          <div class="sk-bar-group-head">Direction</div>
           <ul class="sk-bar-list">
             <li class="sk-bar-item"><span class="sk-bar-label">アートディレクション</span><span class="sk-bar-pct">92</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="92"></div></div></li>
             <li class="sk-bar-item"><span class="sk-bar-label">チームリード・育成</span><span class="sk-bar-pct">90</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="90"></div></div></li>
@@ -643,7 +625,7 @@
         </div>
         <!-- 戦略・推進 -->
         <div>
-          <div class="sk-bar-group-head">戦略・推進</div>
+          <div class="sk-bar-group-head">Strategy & Execution</div>
           <ul class="sk-bar-list">
             <li class="sk-bar-item"><span class="sk-bar-label">ブランド戦略</span><span class="sk-bar-pct">88</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="88"></div></div></li>
             <li class="sk-bar-item"><span class="sk-bar-label">ガイドライン策定</span><span class="sk-bar-pct">88</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="88"></div></div></li>
@@ -653,7 +635,7 @@
         </div>
         <!-- ツール -->
         <div>
-          <div class="sk-bar-group-head">ツール</div>
+          <div class="sk-bar-group-head">Tools</div>
           <ul class="sk-bar-list">
             <li class="sk-bar-item"><span class="sk-bar-label">Figma</span><span class="sk-bar-pct">95</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="95"></div></div></li>
             <li class="sk-bar-item"><span class="sk-bar-label">Adobe Suite（Ai / Ps / Ae）</span><span class="sk-bar-pct">90</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="90"></div></div></li>
@@ -686,8 +668,8 @@
       <p class="contact-sub">新しいプロジェクト・コラボレーション・<br>お仕事のご相談はお気軽にどうぞ。</p>
     </div>
     <div class="contact-right">
-      <a href="mailto:hello@hirokotanaka.com" class="contact-link">
-        hello@hirokotanaka.com <span class="arr">↗</span>
+      <a href="https://www.linkedin.com/in/hiroko-tanaka-792135303/" target="_blank" rel="noopener" class="contact-link">
+        Hiroko Tanaka on LinkedIn <span class="arr">↗</span>
       </a>
       <div class="contact-avail"><div class="ca-dot"></div>Currently open to new opportunities</div>
     </div>
@@ -696,10 +678,6 @@
 
 <footer>
   <div class="f-copy">© 2025 Hiroko Tanaka. All rights reserved.</div>
-  <ul class="f-links">
-    <li><a href="#">LinkedIn</a></li>
-    <li><a href="#">Behance</a></li>
-  </ul>
 </footer>
 
 <!-- ── Detail Panel ── -->
@@ -790,8 +768,8 @@
       tags: ['Design Lead','Visual Identity','Illustration','3DCG','Media Direction','iF Award'],
       desc: '<strong>LINEのデザイナー育成を目的として3つのイベントで構成された本プログラム。</strong>社員の参加促進と認知拡大が課題でした。ブランドデザインリードを担当し、「クリエイティブな人・もの・ことにフォーカスする」というコンセプトで一貫したブランディングを行い、3Dと手描きのマスコットイラストを組み合わせた新鮮なデザインを開発。KVデザインは各プログラムの特性を反映しつつ、カラーバリエーションで多様性と秩序を示しました。',
       gallery: [
-        'images/new-cc-2.png','images/new-cc-3.png','images/new-cc-4.png',
-        'images/new-cc-6.png','images/new-cc-7.png','images/new-cc-8.png',
+        'images/211104_CCClass_motionzoomBG.mp4','images/new-cc-3.png','images/new-cc-4.png',
+        'images/240923_HT_portfolio_B_102.png','images/new-cc-6.png','images/new-cc-7.png','images/new-cc-8.png',
         'images/new-cc-9.png','images/new-cc-10.png','images/new-cc-11.png',
         'images/new-cc-12.png','images/new-cc-13.png','images/new-cc-14.png'
       ],
@@ -1198,25 +1176,6 @@
     },
   ];
 
-  /* ─── Random work preview collage (3 per load) ─── */
-  (function() {
-    const pool = PROJECTS.filter(p => p.cover);
-    const shuffled = pool.slice().sort(() => Math.random() - 0.5).slice(0, 3);
-    const grid = document.getElementById('wp-grid');
-    shuffled.forEach(p => {
-      const item = document.createElement('div');
-      item.className = 'wp-item';
-      item.innerHTML = `
-        <img src="${p.thumb || p.cover}" alt="${p.title}" loading="lazy">
-        <div class="wp-label">
-          <div class="wp-label-cat">${p.cat}</div>
-          <div class="wp-label-name">${p.title}</div>
-        </div>`;
-      item.addEventListener('click', () => openDetail(p));
-      grid.appendChild(item);
-    });
-  })();
-
   /* ─── Build work grid ─── */
   const wg = document.getElementById('wg');
   PROJECTS.forEach(p => {
@@ -1311,8 +1270,11 @@
     if (p.gallery && p.gallery.length > 0) {
       gEl.innerHTML = `<div class="dp-eyebrow">Work Images</div>
         <div class="dp-gallery">` +
-        p.gallery.map(src => `<img src="${src}" alt="" loading="lazy">`).join('') +
+        p.gallery.map(src => src.endsWith('.mp4')
+          ? `<video src="${src}" autoplay loop muted playsinline style="width:100%;display:block;object-fit:cover;"></video>`
+          : `<img src="${src}" alt="" loading="lazy">`).join('') +
         `</div>`;
+      gEl.querySelectorAll('video').forEach(v => v.play().catch(()=>{}));
     } else {
       gEl.innerHTML = '';
     }
