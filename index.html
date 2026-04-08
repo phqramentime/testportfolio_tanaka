@@ -414,10 +414,11 @@
         padding:24px 24px 32px;
         display:flex; flex-direction:column;
         transform:translateY(-110%);
-        transition:transform .35s cubic-bezier(.19,1,.22,1);
+        visibility:hidden;
+        transition:transform .35s cubic-bezier(.19,1,.22,1), visibility 0s .35s;
         z-index:499;
       }
-      .nav-drawer.open { transform:translateY(0); }
+      .nav-drawer.open { transform:translateY(0); visibility:visible; transition:transform .35s cubic-bezier(.19,1,.22,1), visibility 0s; }
       .nav-drawer a {
         font-size:13px; letter-spacing:0.12em; text-transform:uppercase;
         color:rgba(234,232,227,0.75); text-decoration:none;
@@ -496,7 +497,7 @@
 
 <section id="hero">
   <div class="hero-photo">
-    <img src="images/new-about-1.jpg" alt="">
+    <img src="images/Frame 53.png" alt="">
   </div>
   <div class="hero-main">
     <div class="hero-top-row">
