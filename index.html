@@ -39,6 +39,19 @@
     #cur-ring { position:fixed; width:32px; height:32px; border:1px solid rgba(234,232,227,0.22); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .3s,height .3s,border-color .3s; }
     #cur-ring.on { width:56px; height:56px; border-color:rgba(234,232,227,0.5); }
 
+    /* ── Password Gate ── */
+    #pw-gate { position:fixed; inset:0; background:var(--bg); z-index:10000; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:32px; padding:24px; }
+    #pw-gate.hidden { opacity:0; pointer-events:none; transition:opacity .6s ease; }
+    .pw-logo { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; letter-spacing:0.12em; color:var(--text); margin-bottom:16px; }
+    .pw-label { font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); }
+    .pw-field { display:flex; align-items:center; gap:12px; border-bottom:1px solid var(--border); padding-bottom:8px; transition:border-color .3s; }
+    .pw-field:focus-within { border-color:var(--accent); }
+    .pw-input { background:none; border:none; outline:none; color:var(--text); font-family:'Inter',sans-serif; font-size:16px; font-weight:300; letter-spacing:0.08em; width:220px; }
+    .pw-input::placeholder { color:var(--muted); font-size:13px; }
+    .pw-btn { background:none; border:1px solid var(--border); color:var(--text); font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; padding:8px 20px; cursor:pointer; transition:border-color .3s, color .3s; }
+    .pw-btn:hover { border-color:var(--accent); color:var(--accent); }
+    .pw-error { font-size:12px; color:#e05050; letter-spacing:0.04em; min-height:18px; }
+
     /* ── Loader ── */
     #loader { position:fixed; inset:0; background:var(--bg); z-index:9000; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end; padding:52px 56px; gap:4px; }
     .ld-name { font-family:'Syne',sans-serif; font-size:clamp(36px,6vw,80px); font-weight:700; letter-spacing:-0.03em; line-height:0.9; overflow:hidden; }
@@ -464,6 +477,16 @@
   </style>
 </head>
 <body>
+
+<div id="pw-gate">
+  <div class="pw-logo">HIROKO TANAKA</div>
+  <div class="pw-label">Enter Password</div>
+  <div class="pw-field">
+    <input type="password" class="pw-input" id="pwInput" placeholder="Password" autocomplete="off">
+    <button class="pw-btn" id="pwBtn">Enter</button>
+  </div>
+  <div class="pw-error" id="pwError"></div>
+</div>
 
 <div id="cur"></div>
 <div id="cur-ring"></div>
@@ -1369,16 +1392,45 @@
   const mq=document.getElementById('mq');
   [...tags,...tags].forEach(t=>{ const d=document.createElement('div'); d.className='mq-item'; d.innerHTML=`<span class="mq-sep"></span>${t}`; mq.appendChild(d); });
 
+  /* ─── Password Gate ─── */
+  const pwGate=document.getElementById('pw-gate');
+  const pwInput=document.getElementById('pwInput');
+  const pwBtn=document.getElementById('pwBtn');
+  const pwError=document.getElementById('pwError');
+
+  function startLoader(){
+    const ldTl=gsap.timeline({delay:.1});
+    ldTl
+      .to('#ldLine',{width:'100%',duration:1.8,ease:'power2.inOut'})
+      .to('#ln1',{y:'0%',duration:.9,ease:'power3.out'},'-=1.4')
+      .to('#ln2',{y:'0%',duration:.9,ease:'power3.out'},'-=.75')
+      .to('#lm',{y:'0%',duration:.7,ease:'power3.out'},'-=.5')
+      .to(loader,{yPercent:-100,duration:1.1,ease:'power3.inOut',delay:.5,
+        onComplete:()=>{ loader.style.display='none'; heroReveal(); }});
+  }
+
+  function checkPw(){
+    if(pwInput.value==='2013202601'){
+      sessionStorage.setItem('pw-ok','1');
+      pwGate.classList.add('hidden');
+      setTimeout(()=>{ pwGate.style.display='none'; startLoader(); },600);
+    } else {
+      pwError.textContent='パスワードが正しくありません';
+      pwInput.value='';
+      pwInput.focus();
+    }
+  }
+  pwBtn.addEventListener('click',checkPw);
+  pwInput.addEventListener('keydown',e=>{ if(e.key==='Enter') checkPw(); });
+
   /* ─── Loader ─── */
   const loader=document.getElementById('loader');
-  const ldTl=gsap.timeline({delay:.1});
-  ldTl
-    .to('#ldLine',{width:'100%',duration:1.8,ease:'power2.inOut'})
-    .to('#ln1',{y:'0%',duration:.9,ease:'power3.out'},'-=1.4')
-    .to('#ln2',{y:'0%',duration:.9,ease:'power3.out'},'-=.75')
-    .to('#lm',{y:'0%',duration:.7,ease:'power3.out'},'-=.5')
-    .to(loader,{yPercent:-100,duration:1.1,ease:'power3.inOut',delay:.5,
-      onComplete:()=>{ loader.style.display='none'; heroReveal(); }});
+  if(sessionStorage.getItem('pw-ok')){
+    pwGate.style.display='none';
+    startLoader();
+  } else {
+    pwInput.focus();
+  }
 
   function heroReveal(){
     const tl=gsap.timeline({defaults:{ease:'power2.out'}});
