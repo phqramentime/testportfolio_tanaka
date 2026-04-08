@@ -968,8 +968,32 @@
       cat: 'Service Branding',
       year: '2020',
       cover: 'images/cover-hq-taimen.png',
-      tags: ['Service Branding','Brand Identity','Illustration','UI Direction'],
+      purpose: 'ハイエンド占いサービス「Karon」のサービスコンセプトと世界観を設計・構築する。占いという曖昧なテーマに対し、イラストを中心とした視覚表現でブランドの世界観を確立し、LINEサービス群との調和を保ちながら独自のブランドポジションを実現する。',
+      role: 'サービスコンセプトと世界観設計のリード。プロダクト全体における表現一貫性の担保。',
+      tags: ['Service Branding','Illustration','Illustration / Mascot','Production','Visual Identity'],
       desc: '<strong>ハイエンド占いサービスとして企画された「Karon」のブランドデザイン・イラストレーションのリードを担当。</strong>後に「LINE占い」に統合されましたが、LINEのサービスらしいミニマルスタイルを維持しながら、サービス独自のイラストを開発することでブランドの強化につなげ、ユーザーの共感をより深める方針の基盤となったプロジェクトでした。',
+      processGroups: [
+        {
+          duration: '1ヶ月',
+          phases: [
+            { name: 'Sense', desc: '課題整理\n判断軸の言語化' },
+          ]
+        },
+        {
+          duration: '2ヶ月',
+          phases: [
+            { name: 'Shape',  desc: '複数案設計\n展開シミュレーション' },
+            { name: 'System', desc: '感情表現を担う\nブランド設計' },
+          ]
+        },
+        {
+          duration: '2ヶ月',
+          phases: [
+            { name: 'Craft',   desc: '主要画面の体験検証\nイラスト制作展開' },
+            { name: 'Sustain', desc: 'ガイドライン\n定義・運用' },
+          ]
+        },
+      ],
       gallery: [
         'images/new-karon-2.png','images/new-karon-3.png','images/new-karon-4.png',
         'images/new-karon-5.png','images/new-karon-6.png','images/new-karon-7.png',
@@ -979,7 +1003,8 @@
         { icon: 'design_services', n: 'Brand', l: 'Lead Design' },
         { icon: 'crop_square', n: 'Minimal', l: 'Style System' },
         { icon: 'diversity_1', n: 'LINE', l: 'Service Family' },
-      ]
+      ],
+      impactDesc: '占いという曖昧で言語化しにくいテーマに対し、イラストを中心とした視覚表現によってサービスの世界観を構築しました。単発の表現に留まらず、アプリ内で継続的に展開・運用可能なイラストシステムとして設計することで、LINEサービス群との調和を保ちながらも、相対的に高級感のあるブランドポジションを確立しました。'
     },
     {
       id: 8,
@@ -1309,15 +1334,22 @@
   overlay.addEventListener('click', e => { if (e.target === overlay) closeDetail(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
 
-  /* ─── Cursor ─── */
+  /* ─── Cursor (PC only — hide on touch devices) ─── */
   const cur = document.getElementById('cur'), ring = document.getElementById('cur-ring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
-  (function loop(){ rx+=(mx-rx)*.1; ry+=(my-ry)*.1; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
-  document.querySelectorAll('a,button,.wi').forEach(el=>{
-    el.addEventListener('mouseenter',()=>ring.classList.add('on'));
-    el.addEventListener('mouseleave',()=>ring.classList.remove('on'));
-  });
+  const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+  if (isTouchDevice) {
+    cur.style.display = 'none';
+    ring.style.display = 'none';
+    document.body.style.cursor = 'auto';
+  } else {
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+    (function loop(){ rx+=(mx-rx)*.1; ry+=(my-ry)*.1; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+    document.querySelectorAll('a,button,.wi').forEach(el=>{
+      el.addEventListener('mouseenter',()=>ring.classList.add('on'));
+      el.addEventListener('mouseleave',()=>ring.classList.remove('on'));
+    });
+  }
 
   /* ─── Nav scroll ─── */
   window.addEventListener('scroll',()=>{ document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20); });
