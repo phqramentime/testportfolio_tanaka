@@ -57,7 +57,7 @@
     .ld-name { font-family:'Syne',sans-serif; font-size:clamp(36px,6vw,80px); font-weight:700; letter-spacing:-0.03em; line-height:0.9; overflow:hidden; }
     .ld-name span { display:block; transform:translateY(110%); }
     .ld-name.sm { font-size:clamp(14px,2vw,22px); font-weight:400; letter-spacing:0.18em; margin-top:12px; }
-    .ld-meta { font-size:11px; letter-spacing:0.18em; color:var(--muted); text-transform:uppercase; overflow:hidden; }
+    .ld-meta { font-size:11px; letter-spacing:0.18em; color:var(--muted); text-transform:uppercase; overflow:hidden; margin-top:8px; }
     .ld-meta span { display:block; transform:translateY(110%); }
     .ld-line { position:absolute; bottom:0; left:0; height:2px; width:0; background:linear-gradient(to right, var(--accent), #006FFF); }
 
@@ -293,11 +293,11 @@
     .sk-bar-groups { display:grid; grid-template-columns:1fr 1fr; gap:56px 80px; margin-top:72px; }
     .sk-bar-group-head { font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--border); }
     .sk-bar-list { list-style:none; }
-    .sk-bar-item { display:grid; grid-template-columns:1fr auto; align-items:center; gap:16px; padding:11px 0; border-bottom:1px solid var(--border); row-gap:6px; }
+    .sk-bar-item { display:grid; grid-template-columns:1fr; align-items:center; gap:6px; padding:11px 0; }
     .sk-bar-item:last-child { border:none; }
     .sk-bar-top { display:contents; }
     .sk-bar-label { font-size:13px; color:var(--text); grid-column:1; }
-    .sk-bar-pct { font-size:11px; color:var(--muted); text-align:right; letter-spacing:0.04em; grid-column:2; }
+    .sk-bar-pct { display:none; }
     .sk-bar-track { height:2px; background:var(--subtle); border-radius:2px; overflow:hidden; grid-column:1/-1; }
     .sk-bar-fill { height:100%; background:var(--accent); border-radius:2px; width:0; transition:width 1.2s cubic-bezier(.25,.46,.45,.94); }
 
@@ -907,7 +907,8 @@
       subtitle: 'Event Visual Identity',
       cat: 'Event / Experience Design',
       year: '2022',
-      cover: 'images/cover-hq-techverse.jpeg',
+      cover: 'images/zoom_blue.mp4',
+      thumb: 'images/tv-09.jpg',
       purpose: 'LINEとヤフーが初めて合同で開催する技術カンファレンス「Tech-Verse」のVI基盤を構築する。抽象的な技術コンセプトを視覚言語へ翻訳し、Web・会場・映像・広告を横断する一貫したブランド体験を実現する。',
       role: 'コンセプト立案・グラフィック表現設計・各媒体の品質向上。長期運用を見据えたブランド体験の設計。',
       tags: ['Event VI','Graphic','Visual Identity','Media Direction','3DCG'],
@@ -1032,6 +1033,7 @@
       cat: 'Internal Identity · Culture',
       year: '2025',
       cover: 'images/cover-hq-lyhub.png',
+      purpose: 'LINEヤフーのブランドアセットとデザインスタイルを集約するアーカイブプラットフォームを構築する。分散した情報・ルールを整理し、統一された視覚表現で制作効率とブランド一貫性の向上を実現する。',
       tags: ['Internal Platform','Illustration','Design System','Archive','iF Award'],
       desc: '<strong>LY Corporation DESIGN HUBは、LINEヤフーのブランドアセットとデザインスタイルを集約したアーカイブプラットフォーム。</strong>分散していた情報やルールを整理し、スタイルとガイドラインを明確化することで、LYブランドの一貫性と制作効率の向上を図りました。本プロジェクトでは、イラストスタイルの設計とビジュアル表現の精度向上を担当し、統一された視覚表現の確立に貢献。本取り組みは2026年iFデザインアワードを受賞しました。',
       gallery: [
@@ -1051,6 +1053,7 @@
       cat: 'Event / Experience Design',
       year: '2019',
       cover: 'images/cover-11.jpg',
+      purpose: 'LINE最大規模の年次カンファレンスにおいて、VIから空間演出・ノベルティまでを一貫してデザインする。シンプルなグラフィック表現でLINEの現在と未来を体現し、以後のブランドデザインにも活きる制作体制を構築する。',
       tags: ['Event VI','Space Direction','Novelty Design','Print'],
       desc: '<strong>LINE最大規模の年次カンファレンスにおいて、VI開発、空間演出のディレクション、ノベルティの制作進行を担当。</strong>極限までシンプルなグラフィックでLINEの現在と未来を表現し、実物コイン型ノベルティを高品質に制作。ハイクオリティな印刷会社との協業により、以後のブランドデザインにも活きる制作体制を構築しました。',
       gallery: [
@@ -1071,6 +1074,7 @@
       cat: 'Product Design',
       year: '2020',
       cover: 'images/cover-hq-entry.jpeg',
+      purpose: 'プログラミング教育用ボードゲームのアートディレクションからデザイン・イラストまで全工程を統括する。教育機関におけるLINE主導のプログラミング教育推進に貢献するプロダクトを実現する。',
       tags: ['Product Design','Illustration','Character Design','Print','Education'],
       desc: '<strong>プログラミング教育用ボードゲームの開発において、アートディレクションからデザイン・イラストレーションまで、すべての制作工程を担当。</strong>キャラクターデザイナーへのディレクションを行いながらゲームの世界観を統括し、印刷・パッケージ制作会社との協業によって高い品質を実現。教育機関におけるLINE主導のプログラミング教育の推進に貢献しました。',
       gallery: [
@@ -1089,12 +1093,14 @@
       subtitle: 'Communication Design',
       cat: 'Communication Design',
       year: '2024',
-      cover: 'images/cover-12.jpg',
-      tags: ['Communication Design','3D Illustration','Motion','KV Design'],
+      cover: 'images/240415_Ymapillustration_v01.mp4',
+      thumb: 'images/cover-12.jpg',
+      purpose: 'Yahoo! MAPリニューアルにおけるグラフィック・コミュニケーションデザインを開発する。3Dイラストとモーションを軸に、多様なカテゴリをハイライトできるサービス特性を視覚化し、ブランド認知の向上を実現する。',
+      tags: ['Communication Design','3D Illustration','Motion Direction','KV Design'],
       desc: '<strong>Mapアプリのリニューアルプロジェクトにおいて、グラフィック・コミュニケーションデザインの開発を推進。</strong>3DイラストとイラストガイドラインNの制作、モーションのディレクションを通じて、マップ上で多様なカテゴリやメディアの特集をハイライトできるサービス特性を表現。サービスの顔となるKVのコンセプト設計から開発までを担い、ブランド認知向上のアプローチを実践しました。',
       gallery: [
-        'images/new-ymap-1.png','images/new-ymap-2.png','images/new-ymap-3.png',
-        'images/new-ymap-4.png'
+        'images/new-ymap-2.png','images/new-ymap-1.png','images/new-ymap-4.png',
+        'images/new-ymap-3.png'
       ],
       impact: [
         { icon: 'view_in_ar', n: '3D', l: 'Illustration Lead' },
@@ -1109,6 +1115,7 @@
       cat: 'Event / Experience Design',
       year: '2021–2023',
       cover: 'images/cover-10.jpg',
+      purpose: 'LINEのビジネスパートナー表彰B2Bイベントのブランディングを構築する。両社の発展を象徴するビジュアルコンセプトを起点に、ステージ・トロフィー・ノベルティまで全媒体を横断する一貫したブランド体験を実現する。',
       tags: ['Event VI','Trophy Design','Stage Design','Web','Novelty'],
       desc: '<strong>LINEのビジネスパートナー表彰B2Bイベントのブランディングを担当。</strong>LINEとパートナー企業を象徴する2つの正方形がつながり拡張していく構造をキービジュアルに落とし込み、両社の発展を表現しました。グラフィックデザインを起点にステージ演出、トロフィー、ノベルティ制作のディレクションを行い、特にトロフィーでは素材・構造を含めたカラーの再現に工夫を凝らしています。',
       gallery: [
@@ -1129,6 +1136,7 @@
       cat: 'Service Branding',
       year: '2021',
       cover: 'images/new-taimen-2.png',
+      purpose: 'LINE対面占いサービスのブランドコミュニケーションをデザインする。占いという抽象度の高いテーマをLINEらしいミニマルな表現へ再構築し、企業のブランドトーンを維持しながら事業価値の発信を実現する。',
       tags: ['Service Branding','Illustration','Brand Communication','Design Lead'],
       desc: '<strong>デザインPJのリーダーとして、他メンバーの成長支援をしながらLINE対面占いサービスのブランドコミュニケーションをデザイン。</strong>占いという抽象度の高いテーマをLINEらしいミニマルな表現へと再構築し、流通額や重要度の高い占い事業を、企業のブランドトーンをリフトしながら発信することができました。',
       gallery: [
@@ -1147,6 +1155,7 @@
       cat: 'Internal Identity · Culture',
       year: '2026',
       cover: 'images/cover-hq-coconala-dp.png',
+      purpose: 'ココナラのVision・Missionを実務の判断基準へと翻訳するデザイン原則を策定する。抽象的な理念を日々のクリエイティブに接続し、デザイン判断の速度と一貫性の向上を実現する。',
       tags: ['Design Principle','Brand Strategy','Internal Culture','Lead Designer'],
       desc: '<strong>coconala Design Principlesは、ここナラのVision・Missionを実務の判断基準へと翻訳するために策定したデザイン原則。</strong>リードデザイナーとしてチームと協議を重ね、既存表現の整理から原則の言語化、レビュー観点の設計までを担当。抽象的な理念を日々のクリエイティブに接続し、判断の速度と一貫性を高めました。',
       gallery: [
@@ -1168,6 +1177,7 @@
       cat: 'Event Branding',
       year: '2025',
       cover: 'images/cover-hq-summer.jpeg',
+      purpose: 'ユーザー招待型サマーイベントのVI基盤を開発する。ココナラらしさと夏らしさを直感的に伝えるコンセプチュアルな表現を構築し、ジュニアメンバーの成長支援と高い参加者満足度の両立を実現する。',
       tags: ['Event VI','Graphic Design','Novelty','Mentoring'],
       desc: '<strong>ユーザーを多数招待して開催するサマーイベントのVI開発プロジェクト。</strong>既存のここナラトーンを部分的に踏まえた上でロゴ品質を向上し、以後も繰り返し活用できる環境を整えました。リードデザイナーとしてジュニアメンバー2名の成長を支援しながら、グラフィックおよびノベルティ開発を推進。ここナラらしさと夏らしさを直感的に伝えるコンセプチュアルな表現を構築し、例年よりも数ポイント以上高い満足度を獲得しました。',
       gallery: [
@@ -1207,14 +1217,14 @@
       year: '2023',
       cover: 'images/new-graphics-1.png',
       tags: ['3D / Blender','Graphic Design','Illustration','Teaching'],
-      desc: '<strong>LINE入社後、新たに3D制作スキルを習得し、様々なプロジェクトに積極的に活用。</strong>継続的な学習意欲でデザイン＋イラスト＋3Dを活用する柔軟な働き方を示し、チームに影響を与えました。またBlenderに関しては、20名程のデザイナーに基礎講座を実施し、同僚の挑戦を支援しました。',
+      desc: '<strong>LINE入社後、新たに3D制作スキルを習得し、様々なプロジェクトに積極的に活用。</strong>継続的な学習意欲でデザイン＋イラスト＋3Dを活用する柔軟な働き方を示し、チームに影響を与えました。またBlenderに関しては、20名程のデザイナーに対して基礎講座を実施し、チームメンバーの成長を支援しました。',
       gallery: [
         'images/new-graphics-2.png','images/new-graphics-3.png',
         'images/new-graphics-4.png','images/new-graphics-5.png','images/new-graphics-6.png'
       ],
       impact: [
         { icon: 'view_in_ar', n: '3D', l: '独学習得' },
-        { icon: 'cast_for_education', n: '20名+', l: 'Blender講師' },
+        { icon: 'cast_for_education', n: '20名+', l: '成長支援' },
         { icon: 'palette', n: 'Design', l: '+Illust+3D' },
       ]
     },
@@ -1249,9 +1259,14 @@
   const panel = document.getElementById('detail-panel');
 
   function openDetail(p) {
-    // Hero image
-    document.getElementById('dpHeroImg').src = p.cover;
-    document.getElementById('dpHeroImg').alt = p.title;
+    // Hero image / video
+    const heroContainer = document.querySelector('.dp-hero');
+    if (p.cover.endsWith('.mp4')) {
+      heroContainer.innerHTML = `<video src="${p.cover}" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>`;
+      heroContainer.querySelector('video').play().catch(()=>{});
+    } else {
+      heroContainer.innerHTML = `<img id="dpHeroImg" src="${p.cover}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+    }
 
     // Meta row
     document.getElementById('dpCat').textContent = p.cat;
