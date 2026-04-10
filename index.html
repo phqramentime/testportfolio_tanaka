@@ -269,6 +269,10 @@
       margin-bottom:40px;
     }
     .dp-desc strong { color:var(--text); font-weight:400; }
+    .dp-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+    .dp-link { display:inline-flex; align-items:center; gap:6px; font-size:12px; letter-spacing:0.04em; color:var(--accent); text-decoration:none; padding:7px 14px; border:1px solid rgba(0,184,112,0.3); border-radius:2px; transition:color .3s, border-color .3s; }
+    .dp-link:hover { color:var(--accent); border-color:var(--accent); }
+    .dp-link .arr { font-size:0.85em; }
 
     /* Image gallery */
     .dp-gallery { display:grid; grid-template-columns:1fr; gap:2px; margin-bottom:48px; }
@@ -746,7 +750,7 @@
       purpose: 'LINEとヤフーの統合に伴い、新会社「LINEヤフー株式会社」のVI基盤を一から構築する。ブランドの一貫性・信頼感・拡張性を担保しながら、社内外への浸透を実現する。',
       role: 'ブランド方針の意思決定を支える判断材料の設計。少人数体制でのブランド品質・一貫性の担保。',
       tags: ['Branding','Design Lead','Photo Direction','Illustration','3DCG'],
-      desc: '<strong>LINEとヤフーの統合に伴うブランドデザインプロジェクトにおいて、3社合同・6ヶ月間の開発に参加。</strong>初期の検討フェーズでは複数案の検証や検討を通じて開発を支援し、後半の収束・実装フェーズではロゴの精緻化から各種展開に至るまで、ブランド表現全体の推進と意思決定支援を担いました。アイデンティティ統合デザインの深化、ビジネスツール制作、撮影ディレクションを通じて、最終的に採択されたブランド案の完成度と一貫性に責任を持ち、ブランドリフトに貢献しました。',
+      desc: '<strong>LINEとヤフーの統合に伴う3社合同のブランドデザインプロジェクトに、コアデザイナーとして参画。6ヶ月間にわたる開発を推進しました。</strong>方向性が拡散する初期段階では、経営層が正しく判断できるよう提案のビジュアルクオリティを徹底的に引き上げながら、展開シミュレーションを含む比較資料を設計。「大企業としての信頼感」「展開可能性」といった軸で議論を構造化し、意思決定を前に進めました。自チーム案の採択後は、コンセプトの磨き込み・ロゴブラッシュアップ・コーポレートグラフィック・ビジネスツール・撮影ディレクションまで一貫して完走し、ブランドの完成度と一貫性を確立しました。',
       gallery: [
         'images/new-ly-corp-2.png','images/new-ly-corp-3.png','images/new-ly-corp-4.png',
         'images/new-ly-corp-5.png','images/new-ly-corp-6.png','images/new-ly-corp-9.png',
@@ -790,7 +794,8 @@
       purpose: 'LINEのデザイナー育成プログラム「Creative Center」のVI基盤を設計・構築する。継続運用を前提とした一貫したブランド展開を通じて、社員の参加促進とデザイン組織の文化醸成を実現する。',
       role: 'デザイナー成長支援プログラムのブランド設計・制作リード。継続運用を前提としたVI設計。',
       tags: ['Design Lead','Visual Identity','Illustration','3DCG','Media Direction','iF Award'],
-      desc: '<strong>LINEのデザイナー育成を目的として3つのイベントで構成された本プログラム。</strong>社員の参加促進と認知拡大が課題でした。ブランドデザインリードを担当し、「クリエイティブな人・もの・ことにフォーカスする」というコンセプトで一貫したブランディングを行い、3Dと手描きのマスコットイラストを組み合わせた新鮮なデザインを開発。KVデザインは各プログラムの特性を反映しつつ、カラーバリエーションで多様性と秩序を示しました。',
+      desc: '<strong>LINEのデザイナー育成を目的とした3つのプログラムで構成された本PJでは、社員の参加促進と認知拡大が課題でした。</strong>ITデザイナーはトレンドに敏感であり、成長支援プログラムにもそれに相応しい訴求力が必要と判断。当時注目され始めていた3Dグラスモーフィズムを「クリエイティブな人・もの・ことにフォーカスする」というコンセプトと接合し、独学で習得した3DCGスキルを初めて実制作に投入しました。KVデザインは各プログラムの特性をカラーバリエーションで表現しつつ、統一感のあるブランド体験を構築。計13回以上の開催で1,500名超の参加を実現し、2023年 iF Design Awardを受賞。noteでの制作プロセス発信もプログラムの認知拡大に貢献しました。',
+      links: [{ label: '制作プロセス（note）', url: 'https://lydesign.jp/n/nc2f446baf474' }],
       gallery: [
         'images/211104_CCClass_motionzoomBG.mp4','images/new-cc-3.png','images/new-cc-4.png',
         'images/240923_HT_portfolio_B_102.png','images/new-cc-6.png','images/new-cc-7.png','images/new-cc-8.png',
@@ -831,7 +836,7 @@
       purpose: 'LINE公式アカウントを起点とした横断ビジネスプラットフォーム「Connect One」の思想を視覚化・言語化する。事業ミッションを体現するVI設計と展開設計によって、全社的なブランド理解と施策推進を後押しする。',
       role: '事業ソリューションを体現するVI設計、制作リード。施策展開によるインナーブランディングへの貢献。',
       tags: ['Design Lead','Branding','Visual Identity','Media Direction','Production'],
-      desc: '<strong>LINE公式アカウントをすべての法人向けサービスの起点として、集客から予約・購買・CRMまでを一気通貫で実現するための横断ビジネスプラットフォーム構想のビジュアライズPJ。</strong>VXデザイナー10名によるコンペの中から、コンセプトを最も的確に体現している案として採用されました。ブランドデザインを通じて全社的なフェーズ・ミッションの浸透に寄与し、デザインとガイドラインはLINEヤフーのビジネスイベントなどで継続的に活用されています。',
+      desc: '<strong>LINE公式アカウントを起点に、集客から予約・購買・CRMまでを一気通貫で実現する横断ビジネスプラットフォーム構想のビジュアライズPJ。</strong>「一つにつながる→最大化する」という事業コンセプトが展開先で直感的に伝わることから逆算し、LYらしいミニマルで王道な表現でロゴとVIを設計。VXデザイナー10名によるコンペにおいて、読みやすさ・ビジョンとの接合性・展開可能性が評価され採択されました。ブランドデザインを起点に全社的なミッション浸透に寄与し、デザインとガイドラインはLINEヤフーのビジネスイベントなどで継続的に活用されています。',
       gallery: [
         'images/new-connect-one-3.png',
         'images/new-connect-one-4.png','images/new-connect-one-5.png','images/new-connect-one-6.png',
@@ -1286,8 +1291,9 @@
     }
 
     // Overview eyebrow + desc
+    const linksHtml = p.links ? `<div class="dp-links">${p.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener" class="dp-link">${l.label}<span class="arr">↗</span></a>`).join('')}</div>` : '';
     document.getElementById('dpDesc').innerHTML =
-      `<div class="dp-eyebrow">Overview</div>` + p.desc;
+      `<div class="dp-eyebrow">Overview</div>` + p.desc + linksHtml;
 
     // Skills & Role eyebrow + role text + tags  (margin-top:0 = flush after purpose)
     document.getElementById('dpTags').innerHTML =
