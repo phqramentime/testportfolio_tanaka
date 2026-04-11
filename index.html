@@ -330,10 +330,13 @@
     /* ── Beyond Design ── */
     #beyond { padding:120px 56px 0; border-top:1px solid var(--border); }
     .beyond-text { font-size:15px; line-height:2.0; color:var(--muted); font-weight:300; max-width:640px; margin-bottom:56px; }
-    .beyond-hero { width:calc(100% + 112px); margin-left:-56px; margin-bottom:3px; overflow:hidden; }
-    .beyond-hero img { width:100%; aspect-ratio:21/9; object-fit:cover; display:block; }
-    .beyond-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; width:calc(100% + 112px); margin-left:-56px; }
-    .beyond-grid img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+    .beyond-strip-wrap { position:relative; width:calc(100% + 112px); margin-left:-56px; overflow:hidden; }
+    .beyond-strip { display:flex; gap:4px; will-change:transform; }
+    .beyond-slide { flex:0 0 auto; width:52vw; position:relative; overflow:hidden; }
+    .beyond-slide img { width:100%; height:100%; aspect-ratio:3/2; object-fit:cover; display:block; transition:transform .6s cubic-bezier(.25,.46,.45,.94); }
+    .beyond-slide:hover img { transform:scale(1.03); }
+    .beyond-progress { width:100%; height:1px; background:var(--subtle); margin-top:24px; margin-left:56px; margin-right:56px; width:calc(100% - 112px); }
+    .beyond-progress-fill { height:100%; width:0%; background:var(--accent); transition:width .3s linear; }
 
     /* ── Contact ── */
     #contact { padding:160px 56px; }
@@ -490,9 +493,9 @@
 
       /* Beyond Design */
       #beyond { padding:80px 24px 0; }
-      .beyond-hero { width:calc(100% + 48px); margin-left:-24px; }
-      .beyond-hero img { aspect-ratio:16/9; }
-      .beyond-grid { grid-template-columns:1fr; gap:3px; width:calc(100% + 48px); margin-left:-24px; }
+      .beyond-strip-wrap { width:calc(100% + 48px); margin-left:-24px; }
+      .beyond-slide { width:80vw; }
+      .beyond-progress { margin-left:24px; margin-right:24px; width:calc(100% - 48px); }
 
       /* Contact */
       #contact { padding:80px 24px; }
@@ -739,13 +742,14 @@
 <section id="beyond">
   <div class="sec-eyebrow">Beyond Design</div>
   <p class="beyond-text">写真を撮ることが好きです。建築や空間の構造、光や素材の扱い方を静かに観察する時間を大切にしています。その視点が、複雑な状況を整理する思考にもつながっています。</p>
-  <div class="beyond-hero">
-    <img src="images/bd-photo-1.png" alt="Photography">
+  <div class="beyond-strip-wrap">
+    <div class="beyond-strip">
+      <div class="beyond-slide"><img src="images/bd-photo-1.png" alt="Photography"></div>
+      <div class="beyond-slide"><img src="images/bd-photo-2.png" alt="Photography"></div>
+      <div class="beyond-slide"><img src="images/bd-photo-3.png" alt="Photography"></div>
+    </div>
   </div>
-  <div class="beyond-grid">
-    <img src="images/bd-photo-2.png" alt="Photography">
-    <img src="images/bd-photo-3.png" alt="Photography">
-  </div>
+  <div class="beyond-progress"><div class="beyond-progress-fill"></div></div>
 </section>
 
 <section id="contact">
@@ -1548,6 +1552,50 @@
       gsap.from('.sk-bar-item',{ opacity:0, y:16, duration:.6, stagger:.05, ease:'power2.out' });
     }
   });
+  /* ── Beyond Strip: auto-scroll + wheel→horizontal ── */
+  (function(){
+    var strip = document.querySelector('.beyond-strip');
+    var wrap = document.querySelector('.beyond-strip-wrap');
+    var fill = document.querySelector('.beyond-progress-fill');
+    if(!strip || !wrap) return;
+    var speed = 0.4; // px per frame
+    var paused = false;
+    var pos = 0;
+    function maxScroll(){ return strip.scrollWidth - wrap.clientWidth; }
+    function updateProgress(){ if(fill) fill.style.width = (pos / maxScroll() * 100) + '%'; }
+    function tick(){
+      if(!paused){
+        pos += speed;
+        if(pos >= maxScroll()){ pos = 0; }
+        strip.style.transform = 'translateX(' + (-pos) + 'px)';
+        updateProgress();
+      }
+      requestAnimationFrame(tick);
+    }
+    wrap.addEventListener('mouseenter', function(){ paused = true; });
+    wrap.addEventListener('mouseleave', function(){ paused = false; });
+    // Vertical wheel → horizontal scroll
+    wrap.addEventListener('wheel', function(e){
+      if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+        e.preventDefault();
+        pos = Math.max(0, Math.min(pos + e.deltaY, maxScroll()));
+        strip.style.transform = 'translateX(' + (-pos) + 'px)';
+        updateProgress();
+      }
+    }, {passive:false});
+    // Touch drag support
+    var touchStart = 0, touchPos = 0;
+    wrap.addEventListener('touchstart', function(e){ paused = true; touchStart = e.touches[0].clientX; touchPos = pos; });
+    wrap.addEventListener('touchmove', function(e){
+      var dx = touchStart - e.touches[0].clientX;
+      pos = Math.max(0, Math.min(touchPos + dx, maxScroll()));
+      strip.style.transform = 'translateX(' + (-pos) + 'px)';
+      updateProgress();
+    });
+    wrap.addEventListener('touchend', function(){ paused = false; });
+    // Start after section enters viewport
+    ScrollTrigger.create({ trigger:'#beyond', start:'top 80%', once:true, onEnter:function(){ requestAnimationFrame(tick); } });
+  })();
   gsap.from('.contact-ttl',{ scrollTrigger:{trigger:'#contact',start:'top 72%'}, clipPath:'inset(0 0 100% 0)',opacity:0,duration:1.0,ease:'power3.out'});
   gsap.from('.contact-right',{ scrollTrigger:{trigger:'#contact',start:'top 68%'}, opacity:0,y:30,duration:.9,delay:.2,ease:'power2.out'});
 </script>
