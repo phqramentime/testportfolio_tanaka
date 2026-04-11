@@ -111,14 +111,17 @@
     .about-header { margin-bottom:64px; }
     .sec-eyebrow { font-size:10px; letter-spacing:0.26em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:14px; margin-bottom:72px; }
     .sec-eyebrow::before { content:''; width:24px; height:1px; background:var(--muted); }
-    .about-layout { display:grid; grid-template-columns:5fr 4fr; gap:120px; align-items:start; }
-    .about-statement { font-family:'Syne',sans-serif; font-size:clamp(20px,2.0vw,28px); font-weight:500; line-height:1.65; letter-spacing:-0.01em; }
+    .about-layout { display:grid; grid-template-columns:5fr 4fr; gap:80px; align-items:start; margin-top:64px; }
+    .about-statement { font-family:'Syne',sans-serif; font-size:clamp(18px,1.8vw,24px); font-weight:500; line-height:1.7; letter-spacing:-0.01em; max-width:720px; }
     .about-statement em { font-style:normal; color:var(--muted); }
-    .stat-table { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--border); margin-bottom:56px; }
+    .about-right { position:sticky; top:80px; }
+    .stat-table { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--border); }
     .st-cell { padding:28px 0; border-bottom:1px solid var(--border); }
     .st-cell:nth-child(odd) { padding-right:32px; border-right:1px solid var(--border); }
     .st-cell:nth-child(even) { padding-left:32px; }
-    .st-n { font-family:'Syne',sans-serif; font-size:clamp(34px,3.5vw,48px); font-weight:700; letter-spacing:-0.03em; line-height:1; margin-bottom:6px; }
+    .st-n { font-family:'Syne',sans-serif; font-size:clamp(34px,3.5vw,48px); font-weight:700; letter-spacing:-0.03em; line-height:1; margin-bottom:6px; position:relative; }
+    .st-icon { color:var(--accent); position:absolute; top:50%; transform:translateY(calc(-50% + 2px)); margin-left:2px; }
+    .st-icon .material-symbols-outlined { font-size:0.75em; font-variation-settings:'wght' 700,'FILL' 1,'GRAD' 200,'opsz' 48; -webkit-text-stroke:0.5px var(--accent); }
     .st-plus { color:var(--accent); font-size:0.75em; }
     .st-l { font-size:11px; color:var(--muted); letter-spacing:0.06em; }
     .award-head { font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
@@ -127,6 +130,25 @@
     .award-n { font-size:13px; font-weight:400; flex:1; }
     .award-tag { font-size:9px; padding:3px 8px; border:1px solid var(--subtle); color:var(--muted); border-radius:2px; letter-spacing:0.08em; text-transform:uppercase; flex-shrink:0; }
     .award-tag.hl { border-color:#007A4A; color:var(--accent); }
+
+    /* ── Journey Timeline ── */
+    .tl-head { font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); margin-bottom:32px; }
+    .tl-wrap { position:relative; padding-left:28px; }
+    .tl-wrap::before { content:''; position:absolute; left:5px; top:8px; bottom:8px; width:1px; background:var(--border); }
+    .tl-item { position:relative; display:grid; grid-template-columns:72px 1fr auto; align-items:baseline; gap:0 16px; padding:14px 0; }
+    .tl-dot { position:absolute; left:-28px; top:20px; width:11px; height:11px; border-radius:50%; border:1.5px solid var(--border); background:var(--bg); z-index:1; }
+    .tl-item.career .tl-dot { border-color:var(--accent); background:rgba(0,184,112,0.15); }
+    .tl-item.current .tl-dot { border-color:var(--accent); background:var(--accent); box-shadow:0 0 12px rgba(0,184,112,0.4); }
+    .tl-item.award .tl-dot { width:7px; height:7px; top:22px; left:-26px; border-color:var(--subtle); }
+    .tl-date { font-size:11px; color:var(--muted); letter-spacing:0.04em; font-variant-numeric:tabular-nums; flex-shrink:0; }
+    .tl-content { font-size:14px; font-weight:400; line-height:1.5; }
+    .tl-item.award .tl-content { font-size:12px; color:var(--muted); }
+    .tl-item.current .tl-content { color:var(--text); font-weight:500; }
+    .tl-sub { font-size:11px; color:var(--muted); margin-top:2px; grid-column:2; }
+    .tl-awards { font-size:11px; color:var(--muted); margin-top:4px; grid-column:2; line-height:1.6; }
+    .tl-awards em { font-style:normal; color:var(--accent); }
+    .tl-tag { font-size:9px; padding:3px 8px; border:1px solid var(--subtle); color:var(--muted); border-radius:2px; letter-spacing:0.08em; text-transform:uppercase; flex-shrink:0; align-self:center; }
+    .tl-tag.hl { border-color:#007A4A; color:var(--accent); }
 
     /* ── Work ── */
     #work { padding:120px 56px 160px; }
@@ -484,6 +506,10 @@
       /* About / Skills */
       #about { padding:80px 24px; }
       .about-layout { grid-template-columns:1fr; gap:56px; }
+      .tl-item { grid-template-columns:56px 1fr auto; gap:0 10px; }
+      .tl-date { font-size:10px; }
+      .tl-content { font-size:13px; }
+      .tl-sub { font-size:10px; }
       #skills { padding:80px 24px; }
       .skills-wrap { grid-template-columns:1fr; gap:40px; }
       .skills-intro { margin-top:0; }
@@ -578,12 +604,53 @@
   <div class="about-header">
     <h2 class="work-ttl">About</h2>
   </div>
+  <div class="about-statement">
+    事業の意思決定をデザインで前に進める、アートディレクターの田中寛子です。<br><br>
+    <em>複雑な状況を構造化し、チームが迷わず判断できる状態をつくることに価値を感じています。デザインを「表現」だけでなく、「意思決定を前に進めるための戦略」として設計。仕組み化による加速を意識しながら、コーポレートブランドからサービス・イベントまで、大規模なブランドの核心に触れるデザインを13年間追求してきました。</em>
+  </div>
   <div class="about-layout">
-    <div class="about-statement">
-      事業の意思決定をデザインで前に進める、アートディレクターの田中寛子です。<br><br>
-      <em>複雑な状況を構造化し、チームが迷わず判断できる状態をつくることに価値を感じています。デザインを「表現」だけでなく、「意思決定を前に進めるための戦略」として設計。仕組み化による加速を意識しながら、コーポレートブランドからサービス・イベントまで、大規模なブランドの核心に触れるデザインを13年間追求してきました。</em>
-    </div>
     <div>
+      <div class="tl-head">Journey</div>
+      <div class="tl-wrap">
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-date">1990.12</span>
+        <span class="tl-content">埼玉県川越市 出身</span>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-date">2009.03</span>
+        <span class="tl-content">大妻高校 卒業</span>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-date">2013.03</span>
+        <span class="tl-content">多摩美術大学 卒業</span>
+        <span></span>
+        <span class="tl-sub">美術学部 グラフィックデザイン学科 広告専攻</span>
+      </div>
+      <div class="tl-item career">
+        <span class="tl-dot"></span>
+        <span class="tl-date">2013 – 18</span>
+        <span class="tl-content">株式会社 たき工房</span>
+        <span></span>
+        <span class="tl-awards">'14 広告電通賞 総合広告電通賞 / '16 広告電通賞 / '18 講談社広告賞 受賞</span>
+      </div>
+      <div class="tl-item career">
+        <span class="tl-dot"></span>
+        <span class="tl-date">2018 – 25</span>
+        <span class="tl-content">LINE株式会社 → LINEヤフー株式会社</span>
+        <span></span>
+        <span class="tl-awards">'21 Creative Center On 社内Award / '23 <em>iF Design Award</em> / '26 <em>iF Design Award</em> 受賞</span>
+      </div>
+      <div class="tl-item current">
+        <span class="tl-dot"></span>
+        <span class="tl-date">2025.02 –</span>
+        <span class="tl-content">株式会社ココナラ</span>
+      </div>
+    </div>
+    </div>
+    <div class="about-right">
       <div class="stat-table">
         <div class="st-cell">
           <div class="st-n"><span class="cnt" data-to="13">0</span></div>
@@ -598,40 +665,17 @@
           <div class="st-l">Event Participants</div>
         </div>
         <div class="st-cell">
+          <div class="st-n"><span class="cnt" data-to="6">0</span><span class="st-icon"><span class="material-symbols-outlined">emoji_events</span></span></div>
+          <div class="st-l">Awards Won</div>
+        </div>
+        <div class="st-cell">
           <div class="st-n"><span class="cnt" data-to="20">0</span><span class="st-plus">+</span></div>
           <div class="st-l">Stakeholders Managed</div>
         </div>
-      </div>
-      <div class="award-head">Recognition</div>
-      <div class="award-row">
-        <span class="award-yr">2026</span>
-        <span class="award-n">iF Design Award — LY Design Hub</span>
-        <span class="award-tag hl">iF Award</span>
-      </div>
-      <div class="award-row">
-        <span class="award-yr">2023</span>
-        <span class="award-n">iF Design Award — Creative Center / LINE PLACE</span>
-        <span class="award-tag hl">iF Award</span>
-      </div>
-      <div class="award-row">
-        <span class="award-yr">2021</span>
-        <span class="award-n">Creative Center On — 社内 Award</span>
-        <span class="award-tag">Internal</span>
-      </div>
-      <div class="award-row">
-        <span class="award-yr">2018</span>
-        <span class="award-n">第40回 読者が選ぶ 講談社広告賞</span>
-        <span class="award-tag">Award</span>
-      </div>
-      <div class="award-row">
-        <span class="award-yr">2016</span>
-        <span class="award-n">第69回 広告電通賞</span>
-        <span class="award-tag">Award</span>
-      </div>
-      <div class="award-row">
-        <span class="award-yr">2014</span>
-        <span class="award-n">第67回 広告電通賞 総合広告電通賞</span>
-        <span class="award-tag">Award</span>
+        <div class="st-cell">
+          <div class="st-n"><span class="cnt" data-to="5">0</span><span class="st-plus">+</span></div>
+          <div class="st-l">Members Mentored</div>
+        </div>
       </div>
     </div>
   </div>
@@ -653,7 +697,7 @@
             <li class="sk-bar-item"><span class="sk-bar-label">情報構造設計</span><span class="sk-bar-pct">95</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="95"></div></div></li>
             <li class="sk-bar-item"><span class="sk-bar-label">コンセプト設計</span><span class="sk-bar-pct">90</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="90"></div></div></li>
             <li class="sk-bar-item"><span class="sk-bar-label">一貫性設計</span><span class="sk-bar-pct">82</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="82"></div></div></li>
-            <li class="sk-bar-item"><span class="sk-bar-label">3DCG（Blender）</span><span class="sk-bar-pct">70</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="70"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">3DCG（Blender等）</span><span class="sk-bar-pct">82</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="82"></div></div></li>
           </ul>
         </div>
         <!-- ディレクション -->
@@ -661,10 +705,10 @@
           <div class="sk-bar-group-head">Direction</div>
           <ul class="sk-bar-list">
             <li class="sk-bar-item"><span class="sk-bar-label">表現統括</span><span class="sk-bar-pct">92</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="92"></div></div></li>
-            <li class="sk-bar-item"><span class="sk-bar-label">チームリード力</span><span class="sk-bar-pct">90</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="90"></div></div></li>
-            <li class="sk-bar-item"><span class="sk-bar-label">合意形成</span><span class="sk-bar-pct">80</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="80"></div></div></li>
-            <li class="sk-bar-item"><span class="sk-bar-label">品質管理</span><span class="sk-bar-pct">68</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="68"></div></div></li>
-            <li class="sk-bar-item"><span class="sk-bar-label">プロジェクト推進</span><span class="sk-bar-pct">65</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="65"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">品質管理</span><span class="sk-bar-pct">88</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="88"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">プロジェクト推進</span><span class="sk-bar-pct">82</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="82"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">チームリード</span><span class="sk-bar-pct">75</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="75"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">合意形成</span><span class="sk-bar-pct">75</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="75"></div></div></li>
           </ul>
         </div>
         <!-- 戦略・推進 -->
@@ -673,7 +717,7 @@
           <ul class="sk-bar-list">
             <li class="sk-bar-item"><span class="sk-bar-label">ブランド戦略</span><span class="sk-bar-pct">88</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="88"></div></div></li>
             <li class="sk-bar-item"><span class="sk-bar-label">判断軸設計</span><span class="sk-bar-pct">88</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="88"></div></div></li>
-            <li class="sk-bar-item"><span class="sk-bar-label">事業理解</span><span class="sk-bar-pct">85</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="85"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">事業理解</span><span class="sk-bar-pct">82</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="82"></div></div></li>
             <li class="sk-bar-item"><span class="sk-bar-label">仕組み思考</span><span class="sk-bar-pct">82</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="82"></div></div></li>
           </ul>
         </div>
@@ -683,8 +727,8 @@
           <ul class="sk-bar-list">
             <li class="sk-bar-item"><span class="sk-bar-label">Figma / Adobe</span><span class="sk-bar-pct">95</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="95"></div></div></li>
             <li class="sk-bar-item"><span class="sk-bar-label">資料・提案力</span><span class="sk-bar-pct">90</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="90"></div></div></li>
-            <li class="sk-bar-item"><span class="sk-bar-label">プロトタイピング</span><span class="sk-bar-pct">80</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="80"></div></div></li>
-            <li class="sk-bar-item"><span class="sk-bar-label">AIツール活用</span><span class="sk-bar-pct">75</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="75"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">AIツール利活用</span><span class="sk-bar-pct">80</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="80"></div></div></li>
+            <li class="sk-bar-item"><span class="sk-bar-label">プロトタイピング</span><span class="sk-bar-pct">75</span><div class="sk-bar-track"><div class="sk-bar-fill" data-w="75"></div></div></li>
           </ul>
         </div>
       </div>
@@ -1489,7 +1533,7 @@
         onUpdate(){ el.textContent=Math.floor(this.targets()[0].v).toLocaleString(); }})});
   });
 
-  gsap.from('.award-row',{ scrollTrigger:{trigger:'.award-head',start:'top 80%'}, x:-20,opacity:0,duration:.7,stagger:.09,ease:'power2.out'});
+  gsap.from('.tl-item',{ scrollTrigger:{trigger:'.tl-wrap',start:'top 80%'}, x:-20,opacity:0,duration:.6,stagger:.07,ease:'power2.out'});
   gsap.from('.work-ttl',{ scrollTrigger:{trigger:'#work',start:'top 75%'}, clipPath:'inset(0 0 100% 0)',opacity:0,duration:1.0,ease:'power3.out'});
   gsap.from('.wi',{ scrollTrigger:{trigger:'#wg',start:'top 85%'}, opacity:0,y:40,duration:.8,stagger:.05,ease:'power2.out'});
   gsap.from('.skills-intro',{ scrollTrigger:{trigger:'#skills',start:'top 72%'}, clipPath:'inset(0 0 100% 0)',opacity:0,duration:1.0,ease:'power3.out'});
