@@ -495,7 +495,7 @@
       /* Beyond Design */
       #beyond { padding:80px 24px 0; }
       .beyond-strip-wrap { width:calc(100% + 48px); margin-left:-24px; }
-      .beyond-slide { height:35vh; }
+      .beyond-slide { height:28vh; max-width:82vw; }
 
       /* Contact */
       #contact { padding:80px 24px; }
@@ -1512,7 +1512,7 @@
       .to('#ln2',{y:'0%',duration:.9,ease:'power3.out'},'-=.75')
       .to('#lm',{y:'0%',duration:.7,ease:'power3.out'},'-=.5')
       .to(loader,{yPercent:-100,duration:1.1,ease:'power3.inOut',delay:.5,
-        onComplete:()=>{ loader.style.display='none'; heroReveal(); }});
+        onComplete:()=>{ loader.style.display='none'; window.scrollTo(0,0); heroReveal(); }});
   }
 
   function checkPw(){
@@ -1578,7 +1578,7 @@
     var strip = document.querySelector('.beyond-strip');
     var wrap = document.querySelector('.beyond-strip-wrap');
     if(!strip || !wrap) return;
-    var speed = 0.25; // px per frame
+    var speed = window.innerWidth <= 768 ? 0.7 : 0.25; // px per frame
     var paused = false;
     var pos = 0;
     // Half = one full set of photos (strip contains 2 identical sets)
