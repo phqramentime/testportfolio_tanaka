@@ -331,10 +331,10 @@
     #beyond { padding:120px 56px 0; border-top:1px solid var(--border); }
     .beyond-text { font-size:15px; line-height:2.0; color:var(--muted); font-weight:300; max-width:640px; margin-bottom:56px; }
     .beyond-strip-wrap { position:relative; width:calc(100% + 112px); margin-left:-56px; overflow:hidden; }
-    .beyond-strip { display:flex; gap:4px; will-change:transform; }
+    .beyond-strip { display:flex; gap:4px; will-change:transform; transform:translate3d(0,0,0); backface-visibility:hidden; }
     .beyond-slide { flex:0 0 auto; height:45vh; position:relative; overflow:hidden; }
-    .beyond-slide img { height:100%; width:auto; object-fit:cover; display:block; transition:transform .6s cubic-bezier(.25,.46,.45,.94); }
-    .beyond-slide:hover img { transform:scale(1.03); }
+    .beyond-slide img { height:100%; width:auto; object-fit:cover; display:block; }
+    @media (hover:hover) { .beyond-slide img { transition:transform .6s cubic-bezier(.25,.46,.45,.94); } .beyond-slide:hover img { transform:scale(1.03); } }
 
     /* ── Contact ── */
     #contact { padding:160px 56px; }
@@ -644,7 +644,7 @@
         <span class="tl-date">2018 – 25</span>
         <span class="tl-content">LINE株式会社 → LINEヤフー株式会社</span>
         <span></span>
-        <span class="tl-awards">'21 Creative Center On 社内Award / '23 <em>iF Design Award</em> / '26 <em>iF Design Award</em> 受賞</span>
+        <span class="tl-awards">'21 Creative Center On 社内Award / '23 <em>iF Design Award</em> ×2 / '26 <em>iF Design Award</em> 受賞</span>
       </div>
       <div class="tl-item current">
         <span class="tl-dot"></span>
@@ -741,7 +741,7 @@
 
 <section id="beyond">
   <div class="sec-eyebrow">Beyond Design</div>
-  <p class="beyond-text">写真を撮ることが好きです。建築や空間の構造、光や素材の扱い方を静かに観察する時間を大切にしています。その視点が、複雑な状況を整理する思考にもつながっています。</p>
+  <p class="beyond-text">写真を撮ることが好きです。建築や空間の構造、光と素材の関係性、構図が生む緊張と調和を静かに観察する時間を大切にしています。その視点が、複雑な状況を整理する思考にもつながっています。</p>
   <div class="beyond-strip-wrap">
     <div class="beyond-strip">
       <div class="beyond-slide"><img src="images/photo_01.png" alt="Photography"></div>
@@ -1077,6 +1077,26 @@
       impactDesc: '複数の表現案と判断材料を段階的に整理・提示することで具体的な意思決定フェーズへと導き、プロダクト内外におけるブランド表現の一貫性と完成度を担保。デザイン賞の受賞を含むアウトカムにつながるブランド体験基盤の構築と、社内外での認知向上に貢献しました。',
     },
     {
+      id: 8,
+      title: 'LY Design Hub',
+      subtitle: 'Internal Archive Platform',
+      cat: 'Internal Identity · Culture',
+      year: '2025',
+      cover: 'images/cover-hq-lyhub.png',
+      purpose: 'LINEヤフーのブランドアセットとデザインスタイルを集約するアーカイブプラットフォームを構築する。分散した情報・ルールを整理し、統一された視覚表現で制作効率とブランド一貫性の向上を実現する。',
+      tags: ['Internal Platform','Illustration','Design System','Archive','iF Award'],
+      desc: '<strong>LY Corporation DESIGN HUBは、LINEヤフーのブランドアセットとデザインスタイルを集約したアーカイブプラットフォーム。</strong>分散していた情報やルールを整理し、スタイルとガイドラインを明確化することで、LYブランドの一貫性と制作効率の向上を図りました。本プロジェクトでは、イラストスタイルの設計とビジュアル表現の精度向上を担当し、統一された視覚表現の確立に貢献。本取り組みは2026年iFデザインアワードを受賞しました。',
+      gallery: [
+        'images/new-ly-hub-1.png','images/new-ly-hub-2.png','images/new-ly-hub-3.png',
+        'images/new-ly-hub-4.png','images/new-ly-hub-5.png'
+      ],
+      impact: [
+        { icon: 'emoji_events', n: 'iF 2026', l: 'Award Winning' },
+        { icon: 'folder_open', n: 'Archive', l: 'Platform Design' },
+        { icon: 'verified', n: 'Brand', l: '一貫性向上' },
+      ]
+    },
+    {
       id: 7,
       title: 'Karon',
       subtitle: 'Service Branding',
@@ -1115,26 +1135,6 @@
         { icon: 'diversity_1', n: 'LINE', l: 'Service Family' },
       ],
       impactDesc: '占いという曖昧で言語化しにくいテーマに対し、イラストを中心とした視覚表現によってサービスの世界観を構築しました。単発の表現に留まらず、アプリ内で継続的に展開・運用可能なイラストシステムとして設計することで、LINEサービス群との調和を保ちながらも、相対的に高級感のあるブランドポジションを確立しました。'
-    },
-    {
-      id: 8,
-      title: 'LY Design Hub',
-      subtitle: 'Internal Archive Platform',
-      cat: 'Internal Identity · Culture',
-      year: '2025',
-      cover: 'images/cover-hq-lyhub.png',
-      purpose: 'LINEヤフーのブランドアセットとデザインスタイルを集約するアーカイブプラットフォームを構築する。分散した情報・ルールを整理し、統一された視覚表現で制作効率とブランド一貫性の向上を実現する。',
-      tags: ['Internal Platform','Illustration','Design System','Archive','iF Award'],
-      desc: '<strong>LY Corporation DESIGN HUBは、LINEヤフーのブランドアセットとデザインスタイルを集約したアーカイブプラットフォーム。</strong>分散していた情報やルールを整理し、スタイルとガイドラインを明確化することで、LYブランドの一貫性と制作効率の向上を図りました。本プロジェクトでは、イラストスタイルの設計とビジュアル表現の精度向上を担当し、統一された視覚表現の確立に貢献。本取り組みは2026年iFデザインアワードを受賞しました。',
-      gallery: [
-        'images/new-ly-hub-1.png','images/new-ly-hub-2.png','images/new-ly-hub-3.png',
-        'images/new-ly-hub-4.png','images/new-ly-hub-5.png'
-      ],
-      impact: [
-        { icon: 'emoji_events', n: 'iF 2026', l: 'Award Winning' },
-        { icon: 'folder_open', n: 'Archive', l: 'Platform Design' },
-        { icon: 'verified', n: 'Brand', l: '一貫性向上' },
-      ]
     },
     {
       id: 9,
@@ -1288,15 +1288,14 @@
       year: '2009–2018',
       cover: 'images/cover-17.jpg',
       tags: ['Advertising','Package Design','Typography','Illustration','Logo Design'],
-      desc: '<strong>大学では広告制作、パッケージデザイン、タイポグラフィ、イラストレーションなど多彩な表現を学び、新卒で入社した広告会社でさまざまな販促デザイン制作に活用。</strong>広告制作のキャリアを通じて、味の素、アサヒ飲料、Googleなど主に大手クライアントとのプロジェクトに携わり、マス広告以外にもロゴやパッケージデザイン、イラストなど多岐にわたる業務を経験しました。',
+      desc: '<strong>大学では広告制作、パッケージデザイン、タイポグラフィ、イラストレーションなど多彩な表現を学び、新卒で入社した広告会社でさまざまな販促デザイン制作に活用。</strong>広告制作のキャリアを通じて、味の素、アサヒ飲料、Googleなど主に大手クライアントとのプロジェクトに携わり、マス広告以外にもロゴやパッケージデザイン、イラストなど多岐にわたる業務を経験しました。はとバスのキャラクター開発では3社競合を経て案件を獲得し、20案以上のイラストをすべて自身で制作。企画からビジュアルまで一貫して手がける姿勢は、この時期に培われました。',
       gallery: [
         'images/new-early-1.png','images/new-early-2.png','images/new-early-3.png',
         'images/new-early-4.png','images/new-early-5.png','images/new-early-6.png'
       ],
       impact: [
-        { icon: 'business_center', n: '大手', l: 'Client Projects' },
-        { icon: 'auto_awesome', n: 'Multi', l: '多分野経験' },
-        { icon: 'history', n: '2009', l: '→2018' },
+        { icon: 'work', n: '50+', l: 'Client Projects' },
+        { icon: 'emoji_events', n: '3 Awards', l: '広告電通賞・講談社広告賞' },
       ]
     },
     {
@@ -1313,9 +1312,9 @@
         'images/new-graphics-4.png','images/new-graphics-5.png','images/new-graphics-6.png'
       ],
       impact: [
-        { icon: 'view_in_ar', n: '3D', l: '独学習得' },
-        { icon: 'cast_for_education', n: '20名+', l: '成長支援' },
-        { icon: 'palette', n: 'Design', l: '+Illust+3D' },
+        { icon: 'view_in_ar', n: '3D', l: '複数ソフト独学習得' },
+        { icon: 'school', n: '20名+', l: '成長支援で組織へ還元' },
+        { icon: 'hub', n: 'Versatile', l: 'Graphic × Illust × 3D', iconSize: '26px' },
       ]
     },
   ];
@@ -1504,7 +1503,12 @@
   const pwBtn=document.getElementById('pwBtn');
   const pwError=document.getElementById('pwError');
 
+  /* ローダー/パスワードゲート表示中はbodyスクロールを完全に抑制 */
+  document.body.style.overflow='hidden';
+  window.scrollTo(0,0);
+
   function startLoader(){
+    window.scrollTo(0,0);
     const ldTl=gsap.timeline({delay:.1});
     ldTl
       .to('#ldLine',{width:'100%',duration:1.8,ease:'power2.inOut'})
@@ -1512,7 +1516,13 @@
       .to('#ln2',{y:'0%',duration:.9,ease:'power3.out'},'-=.75')
       .to('#lm',{y:'0%',duration:.7,ease:'power3.out'},'-=.5')
       .to(loader,{yPercent:-100,duration:1.1,ease:'power3.inOut',delay:.5,
-        onComplete:()=>{ loader.style.display='none'; window.scrollTo(0,0); heroReveal(); }});
+        onComplete:()=>{
+          loader.style.display='none';
+          window.scrollTo(0,0);
+          document.body.style.overflow='';
+          ScrollTrigger.refresh();
+          heroReveal();
+        }});
   }
 
   function checkPw(){
@@ -1591,41 +1601,64 @@
       half = w;
     }
     function wrapPos(){ if(half <= 0) return; if(pos >= half) pos -= half; if(pos < 0) pos += half; }
+    function applyPos(){ strip.style.transform = 'translate3d(' + (-pos) + 'px,0,0)'; }
     function tick(){
       if(!paused){
         pos += speed;
         wrapPos();
-        strip.style.transform = 'translateX(' + (-pos) + 'px)';
+        applyPos();
       }
       requestAnimationFrame(tick);
     }
-    wrap.addEventListener('mouseenter', function(){ paused = true; });
-    wrap.addEventListener('mouseleave', function(){ paused = false; });
+    var hoverTimer = null;
+    function resetHoverTimer(){
+      clearTimeout(hoverTimer);
+      paused = true;
+      hoverTimer = setTimeout(function(){ paused = false; }, 4000);
+    }
+    wrap.addEventListener('mouseenter', resetHoverTimer);
+    wrap.addEventListener('mousemove', resetHoverTimer);
+    wrap.addEventListener('mouseleave', function(){ clearTimeout(hoverTimer); paused = false; });
     // Vertical wheel → horizontal scroll (seamless)
     wrap.addEventListener('wheel', function(e){
       if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
         e.preventDefault();
         pos += e.deltaY;
         wrapPos();
-        strip.style.transform = 'translateX(' + (-pos) + 'px)';
+        applyPos();
+        resetHoverTimer();
       }
     }, {passive:false});
     // Touch drag support with inertia (seamless)
-    var touchStart = 0, touchPos = 0, touchPrev = 0, touchTime = 0, velocity = 0;
+    var touchStartX = 0, touchStartY = 0, touchPos = 0, touchPrev = 0, touchTime = 0, velocity = 0;
+    var isHorizontal = null; // null=未確定, true=横スワイプ, false=縦スクロール
+    var touchRaf = 0;
     wrap.addEventListener('touchstart', function(e){
-      paused = true; velocity = 0;
-      touchStart = e.touches[0].clientX; touchPrev = touchStart;
+      paused = true; velocity = 0; isHorizontal = null;
+      cancelAnimationFrame(touchRaf);
+      touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY;
+      touchPrev = touchStartX;
       touchPos = pos; touchTime = Date.now();
     });
     wrap.addEventListener('touchmove', function(e){
-      var now = Date.now(), x = e.touches[0].clientX;
+      var x = e.touches[0].clientX, y = e.touches[0].clientY;
+      // 最初の移動で方向を確定（閾値5px）
+      if(isHorizontal === null){
+        var dx = Math.abs(x - touchStartX), dy = Math.abs(y - touchStartY);
+        if(dx < 5 && dy < 5) return;
+        isHorizontal = dx > dy;
+      }
+      if(!isHorizontal) return;
+      e.preventDefault();
+      var now = Date.now();
       var dt = now - touchTime;
       if(dt > 0) velocity = (touchPrev - x) / dt;
       touchPrev = x; touchTime = now;
-      pos = touchPos + (touchStart - x);
+      pos = touchPos + (touchStartX - x);
       wrapPos();
-      strip.style.transform = 'translateX(' + (-pos) + 'px)';
-    });
+      cancelAnimationFrame(touchRaf);
+      touchRaf = requestAnimationFrame(applyPos);
+    }, {passive:false});
     wrap.addEventListener('touchend', function(){
       // Inertia: coast with friction
       var v = velocity * 16; // scale to px/frame
@@ -1634,7 +1667,7 @@
         v *= 0.95;
         pos += v;
         wrapPos();
-        strip.style.transform = 'translateX(' + (-pos) + 'px)';
+        applyPos();
         requestAnimationFrame(coast);
       }
       requestAnimationFrame(coast);
